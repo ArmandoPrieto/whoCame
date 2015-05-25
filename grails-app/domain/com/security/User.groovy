@@ -1,9 +1,9 @@
 package com.security
-
+import demographic.Person
 class User {
 
 	transient springSecurityService
-
+	//Person person
 	String username
 	String password
 	boolean enabled = true

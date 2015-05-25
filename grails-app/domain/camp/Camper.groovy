@@ -7,8 +7,13 @@ import file.Document;
 
 class Camper extends Person{
 
-	List<Document> documents
+	static belongsTo = [grade: Grade]
+	
 	
     static constraints = {
+		
     }
+	static mapping = {
+		tablePerHierarchy false
+	 }
 }

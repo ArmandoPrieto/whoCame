@@ -117,11 +117,18 @@ log4j.main = {
 }
 
 
+//grails.gorm.autoFlush = true
+//grails.gorm.failOnError=true
+grails.plugin.springsecurity.rejectIfNoRule = false
+grails.plugin.springsecurity.fii.rejectPublicInvocations = false
+grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.security.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.security.UserRole'
 grails.plugin.springsecurity.authority.className = 'com.security.Role'
-grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+grails.plugin.springsecurity.logout.postOnly = false
+grails.plugin.springsecurity.interceptUrlMap = [
 	'/':                              ['permitAll'],
 	'/index':                         ['permitAll'],
 	'/index.gsp':                     ['permitAll'],
@@ -129,6 +136,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/js/**':                      ['permitAll'],
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
-	'/**/favicon.ico':                ['permitAll']
+	'/**/files/**':                  ['permitAll'],
+	'/**/favicon.ico':                ['permitAll'],
+	'/main/**': ['permitAll'],
 ]
 

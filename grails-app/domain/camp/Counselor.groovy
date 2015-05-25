@@ -4,8 +4,11 @@ import file.Document
 
 class Counselor extends Person{
 	
-	List<Document> documents
-
+	static belongsTo = [team: CounselorTeam]
+	
     static constraints = {
     }
+	static mapping = {
+		tablePerHierarchy false
+	 }
 }

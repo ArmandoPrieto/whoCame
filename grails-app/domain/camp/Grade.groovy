@@ -2,9 +2,11 @@ package camp
 
 class Grade {
 	
-	CounselorTeam team
-	List<Camper> Campers
-
+	
+	List campers
+	static hasOne = [team: CounselorTeam]
+	static hasMany = [campers: Camper]
+	
     static constraints = {
     }
 }

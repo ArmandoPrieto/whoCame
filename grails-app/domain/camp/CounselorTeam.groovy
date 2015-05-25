@@ -2,9 +2,12 @@ package camp
 
 class CounselorTeam {
 	
-	HeadCounselor headCounselor
-	List<Counselor> counselors
-
+	
+	List counselors
+	Grade grade
+	static hasOne = [headCounselor: HeadCounselor]
+	static hasMany = [counselors: Counselor]
+	
     static constraints = {
     }
 }
