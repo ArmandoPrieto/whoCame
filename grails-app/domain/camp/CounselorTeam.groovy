@@ -9,5 +9,9 @@ class CounselorTeam {
 	static hasMany = [counselors: Counselor]
 	
     static constraints = {
+		counselors nullable: true
+		grade nullable: false
+		headCounselor nullable: true
+	
     }
 }

@@ -6,7 +6,7 @@ class MainController {
 
     def index() { 
 		
-		def filename ='web-app/files/Untitled3.xlsx'
+		def filename ='web-app/files/Untitled2.xlsx'
 		GroovyExcelParser parser = new GroovyExcelParser()
 		def (headers, rows) = parser.parse(filename)
 		println 'Headers'
@@ -16,7 +16,7 @@ class MainController {
 		println 'Rows'
 		println '------------------'
 		rows.each { row ->
-			println parser.toXml(headers, row)
+			println parser.toMap(headers, row)
 		}
 		
 	}

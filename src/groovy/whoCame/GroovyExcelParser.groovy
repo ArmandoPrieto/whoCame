@@ -30,9 +30,11 @@ class GroovyExcelParser {
 	
 		def getRowData(Row row) {
 			def data = []
+			
 			for (Cell cell : row) {
 				getValue(row, cell, data)
-			}
+			
+				}
 			data
 		}
 	
@@ -78,6 +80,16 @@ class GroovyExcelParser {
 				obj += "\t<$headerName>$datum</$headerName>\n"
 			}
 			obj += "</object>"
+		}
+		def toMap(header, row) {
+			Map map = [:]
+			
+			row.eachWithIndex { datum, i ->
+				map.put(header[i], datum)
+			}
+			
+			return map
+			
 		}
 	
 	/*	public static void main(String[]args) {
