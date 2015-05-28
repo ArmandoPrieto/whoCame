@@ -12,7 +12,7 @@ class ImporterController {
 	
 	
 	def counselorImporter(){
-	/*	boolean importProcess = true
+		boolean importProcess = true
 		def filename = 'web-app/files/Untitled2.xlsx'
 		boolean append = false
 		GroovyExcelParser parser = new GroovyExcelParser()
@@ -24,28 +24,46 @@ class ImporterController {
 		rows.each { row ->
 			def mapRecords = parser.toMap(headers, row)
 			Counselor counselor = new Counselor(mapRecords)
-			counselor.address = new Address(mapRecords)
+			counselor.personAddress = new Address(mapRecords)
 			
+			if(mapRecords['grade'] && mapRecords['grade']!=''){
+				
+			println('GRADE: ' +mapRecords['grade'])
 			Grade grade = Grade.findByGradeName(mapRecords['grade'])
+			println('GRADE GRADE: ' +grade)
 			CounselorTeam team = CounselorTeam.findByGrade(grade)
 			
-			team.addCounselor(counselor)
+			team.getCounselors().add(counselor)
 			team.save()
 			
 			counselor.team = team
+			}
+			println(counselor.name + " "+counselor?.personAddress?.address)
+			try {
+				if(!counselor.save()){
+					throw new Exception ("Counselor save failed")
+				}
+			} catch(Exception e) {
+				println "***********---------***********"
+				println e.toString()
+				// This will at least tell you what is wrong with
+				// the instance you are trying to save
+				counselor.errors.allErrors.each {error ->
+					println error.toString()
+				}
+				println "***********---------***********"
+			}
 			
-			println(counselor.name + " "+counselor?.address?.address)
-			importProcess = importProcess && counselor.save()
 		
 		}
-		println 'SaveImportCounselor: 'importProcess
+		println 'SaveImportCounselor: '+importProcess
 		
 		if(!append){
 			
 			
 			
 			
-		}*/
+		}
 		
 	}
 }
