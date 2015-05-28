@@ -2,19 +2,21 @@ package demographic
 import java.util.List;
 import file.Document
 import com.security.User
+import attendance.Board
 
 class Person {
 	
 	String name
 	Date birthDate
 	List documents
-	Address personAddress
 	String gender
 	String mobileNumber //Improve it
 	String homeNumber  //Improve it should be refereced as a class
 	String email
+	static hasOne = [personAddress: Address, boardAttendance: Board]
 	static hasMany = [documents: Document]
 	//static hasOne = [user: User]
+	
     static constraints = {
 		gender( inList: ["Male", "Female", "U"])
 		
@@ -25,10 +27,13 @@ class Person {
 		mobileNumber(nullable: true, blank: true)
 		homeNumber(nullable: true, blank: true)
 		email(nullable: true, blank: true)
+		boardAttendance(nullable: true)
+		
 		
 	}
 	static mapping = {
-		
+		documents cascade:'delete'
+		personAddress cascade:'delete'
 		tablePerHierarchy false
 	 }
 }

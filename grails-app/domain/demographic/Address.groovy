@@ -7,6 +7,19 @@ class Address {
 	String state
 	String zip
 	
-    static constraints = {
+	static belongsTo = [person: Person]
+    
+	static constraints = {
+		address(nullable: true, blank:true)
+		city(nullable: true, blank:true)
+		state(nullable: true, blank:true)
+		zip(nullable: true, blank:true)
+		
+		
     }
+	
+	static mapping ={ 
+		
+		
+	}
 }

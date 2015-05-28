@@ -7,11 +7,11 @@ import file.Document;
 
 class Camper extends Person{
 
-	static belongsTo = [grade: Grade]
+	static belongsTo = [camperGrade: Grade]
 	
 	
     static constraints = {
-		
+		camperGrade(nullable: true)
     }
 	static mapping = {
 		tablePerHierarchy false
