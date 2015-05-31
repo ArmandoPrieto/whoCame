@@ -8,7 +8,9 @@
 
 	<script>
 			$( document ).ready(function() {
-			   $("#saveRecords").click(function(){
+			//	$('.attendance').prop('checked', false).checkboxradio('refresh');
+
+				   $("#saveRecords").click(function(){
 
 				$("#attendanceForm").submit();
 				 
@@ -35,7 +37,13 @@
 			  <fieldset data-role="controlgroup" >
 			 
 			 	<g:each in="${persons}">
-			      <label><input type="checkbox" id="checkbox${it.id}" name="checkbox-attendance" value="${it.id}" data-iconpos="right"> ${it.name} </label>
+			      <label><input class="attendance" 
+			      				type="checkbox" id="checkbox${it.id}" 
+			      				name="checkbox-attendance"  
+			      				value="${it.id}" 
+			      				data-iconpos="right"
+			      				checked="checked" 
+			      				> ${it.name} </label>
 			       
 				</g:each>
 			    </fieldset>

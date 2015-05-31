@@ -48,36 +48,30 @@ class AttendanceController {
 		params['checkbox-attendance'].each{
 			 
 			Person person = Person.get(it)
-			Attendance attendance = new Attendance(new DateTime())
+			Attendance attendance = new Attendance()
+			AttendanceValue checkIn =null
+			AttendanceValue checkOut =null 
 			if(params.attendanceType == "checkOut"){
-				
-				attendance.checkOut.time = new DateTime()
-				attendance.checkOut.value = true
-				
+				checkOut = new AttendanceValue()
+				checkOut.time = new DateTime()
+				checkOut.value = true
+				checkOut.save()
 			}else if(params.attendanceType == "checkIn"){
-				attendance.checkIn.time = new DateTime()
-				attendance.checkIn.value = true
+				checkIn = new AttendanceValue()
+				checkIn.time = new DateTime()
+				checkIn.value = true
+				checkIn.save()
+				}
+			attendance.checkIn = checkIn
+			attendance.checkOut = checkOut
+			if(!person.boardAttendance){
+				person.boardAttendance = new Board()
 			}
-			
-		/*	
-		//	if(!person.boardAttendance){
-				
-				Board board = new Board()
-				board.attendanceRecords.add(attendance)
-			//	attendance.save()
-				
-				person.boardAttendance = board
-			//	board.save(flush: true)
-				
-		*/		
-			//}
-			/*attendance.board = person.boardAttendance
-			attendance.save(failOnError : true)*/
-			//person.boardAttendance.getAttendanceRecords().add(attendance)
-			
+			DateTime aux = new DateTime()
+			attendance.date = aux.withTimeAtStartOfDay()
+			person.boardAttendance.addToAttendanceRecords(attendance)
 			try{
 				if(!person.save()){
-				
 					throw new Exception ("Exception taking roll on person")
 				}
 			}catch(Exception e){
@@ -88,9 +82,7 @@ class AttendanceController {
 				}
 				println "***********---------***********"
 			}
-			 
 		 }
-		 
 		render(view: 'index')
 		
 	}

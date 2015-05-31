@@ -1,26 +1,27 @@
 package attendance
 
-import java.sql.Date;
 
-import org.joda.time.*
+import org.jadira.usertype.dateandtime.joda.*
+import org.joda.time.DateTime
+
 
 class Attendance {
 	
 	DateTime date
-	//static hasOne = [checkIn: AttendanceValue, checkOut: AttendanceValue]
+	AttendanceValue checkIn
+	AttendanceValue checkOut
 	
-	//static belongsTo = [board: Board]
+	static belongsTo = [board: Board]
 	
-/*	public Attendance(DateTime date){
-		this.date = date.withTimeAtStartOfDay()
-		checkIn = new AttendanceValue()
-		checkOut = new AttendanceValue()
-		
-	}*/
 	
     static constraints = {
-	//	date(nullable: true)
-	//	checkIn(nullable: true)
-	//	checkOut(nullable: true)
+		date(nullable: true)
+		checkIn(unique: true, nullable: true)
+		checkOut(unique: true, nullable: true)
     }
+	
+	static mapping = {
+		
+		date type: PersistentDateTime,  defaultValue: null
+	}
 }

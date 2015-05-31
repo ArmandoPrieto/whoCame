@@ -59,12 +59,13 @@ grails.project.dependency.resolution = {
 	 compile "org.apache.poi:poi:3.12"
 	  compile  'org.apache.poi:poi-ooxml:3.12'
 	  compile  'org.apache.poi:poi-ooxml-schemas:3.12'
+	  
+	  compile "org.jadira.usertype:usertype.core:3.2.0.GA"
     }
 
     plugins {
 		compile ":joda-time:1.5"
 		
-	
 		compile ":spring-security-core:2.0-RC4"
 		
 		// plugins for the build system only
