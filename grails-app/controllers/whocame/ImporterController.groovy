@@ -17,7 +17,12 @@ class ImporterController {
 		def filename = 'web-app/files/counselor.xlsx'
 		boolean append = false
 		if(!append){
-			Counselor.executeUpdate("delete Counselor")
+			Counselor.findAll().each {
+				//it?.team?.counselors?.remove(it)
+				it?.team?.removeFromCounselors(it)
+				it.delete()
+			}
+			
 		}
 		GroovyExcelParser parser = new GroovyExcelParser()
 		def (headers, rows) = parser.parse(filename)
@@ -27,18 +32,18 @@ class ImporterController {
 			try {
 			def mapRecords = parser.toMap(headers, row)
 			counselor = new Counselor(mapRecords)
-			counselor.personAddress = new Address(mapRecords)
+			counselor.setPersonAddress(new Address(mapRecords))
+		
 			
 			Grade grade = Grade.findByGradeName(mapRecords['gradeName'])
 			if(grade){
 			
 				CounselorTeam team = CounselorTeam.findByGrade(grade)
-				team.getCounselors().add(counselor)
-				team.save()
-				counselor.team = team
+				team.addToCounselors(counselor)
+				
 			}
-			
 				if(!counselor.save()){
+					
 					importProcess = false
 					throw new Exception ("Counselor save failed at row"+ i+1)
 				}
@@ -69,7 +74,11 @@ class ImporterController {
 		boolean append = false
 		
 		if(!append){
-			Camper.executeUpdate("delete Camper")
+			Camper.findAll().each {
+				it?.camperGrade?.removeFromCampers(it)
+				it.delete()
+			}
+			
 		}
 		GroovyExcelParser parser = new GroovyExcelParser()
 		def (headers, rows) = parser.parse(filename)
@@ -81,10 +90,8 @@ class ImporterController {
 			
 				Grade grade = Grade.findByGradeName(mapRecords['gradeName'])
 				if(grade){
-					grade.getCampers().add(camper)
-					grade.save()
-					camper.setCamperGrade(grade)
-				
+					grade.addToCampers(camper)
+					
 				}else{
 					throw new Exception ("No grade found at row"+ i+1)
 				}

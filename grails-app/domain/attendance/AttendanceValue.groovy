@@ -1,15 +1,18 @@
 package attendance
 
+import org.joda.time.DateTime
+
 class AttendanceValue {
 	
-	private Date time
-	private boolean value
+	//DateTime time
+	boolean value
+	//static belongsTo = [attendance: Attendance]
 
-	public AttendanceValue(){
+/*	public AttendanceValue(){
 		
 		time = null
 		value = false
-	}
+	}*/
 
 	static constraints = {
 		

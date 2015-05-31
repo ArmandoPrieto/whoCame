@@ -13,7 +13,8 @@ class Person {
 	String mobileNumber //Improve it
 	String homeNumber  //Improve it should be refereced as a class
 	String email
-	static hasOne = [personAddress: Address, boardAttendance: Board]
+	static hasOne = [personAddress: Address]
+	//, boardAttendance: Board]
 	static hasMany = [documents: Document]
 	//static hasOne = [user: User]
 	
@@ -27,13 +28,13 @@ class Person {
 		mobileNumber(nullable: true, blank: true)
 		homeNumber(nullable: true, blank: true)
 		email(nullable: true, blank: true)
-		boardAttendance(nullable: true)
+		//boardAttendance(nullable: true)
 		
 		
 	}
 	static mapping = {
-		documents cascade:'delete'
-		personAddress cascade:'delete'
+		//documents cascade:'delete'
+		personAddress  cascade: "all-delete-orphan"
 		tablePerHierarchy false
 	 }
 }

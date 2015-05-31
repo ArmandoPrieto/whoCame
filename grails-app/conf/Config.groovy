@@ -117,8 +117,8 @@ log4j.main = {
 }
 
 
-//grails.gorm.autoFlush = true
-//grails.gorm.failOnError=true
+grails.gorm.autoFlush = true
+grails.gorm.failOnError=true
 grails.plugin.springsecurity.rejectIfNoRule = false
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false
 grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"

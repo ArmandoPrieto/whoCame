@@ -4,7 +4,7 @@ import demographic.Person
 class HeadCounselor extends Counselor{
 
 	
-	CounselorTeam headCounselorTeam
+	//CounselorTeam headCounselorTeam
 	
     static constraints = {
     }
