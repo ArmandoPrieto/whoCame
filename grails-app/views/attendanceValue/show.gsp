@@ -23,6 +23,24 @@
 			</g:if>
 			<ol class="property-list attendanceValue">
 			
+				<g:if test="${attendanceValueInstance?.time}">
+				<li class="fieldcontain">
+					<span id="time-label" class="property-label"><g:message code="attendanceValue.time.label" default="Time" /></span>
+					
+						<span class="property-value" aria-labelledby="time-label"><g:fieldValue bean="${attendanceValueInstance}" field="time"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${attendanceValueInstance?.value}">
+				<li class="fieldcontain">
+					<span id="value-label" class="property-label"><g:message code="attendanceValue.value.label" default="Value" /></span>
+					
+						<span class="property-value" aria-labelledby="value-label"><g:formatBoolean boolean="${attendanceValueInstance?.value}" /></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form url="[resource:attendanceValueInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">

@@ -26,8 +26,6 @@
 					
 						<th><g:message code="counselorTeam.grade.label" default="Grade" /></th>
 					
-						<th><g:message code="counselorTeam.headCounselor.label" default="Head Counselor" /></th>
-					
 					</tr>
 				</thead>
 				<tbody>
@@ -35,8 +33,6 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${counselorTeamInstance.id}">${fieldValue(bean: counselorTeamInstance, field: "grade")}</g:link></td>
-					
-						<td>${fieldValue(bean: counselorTeamInstance, field: "headCounselor")}</td>
 					
 					</tr>
 				</g:each>

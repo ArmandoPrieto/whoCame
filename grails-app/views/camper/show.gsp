@@ -45,9 +45,7 @@
 				<li class="fieldcontain">
 					<span id="documents-label" class="property-label"><g:message code="camper.documents.label" default="Documents" /></span>
 					
-						<g:each in="${camperInstance.documents}" var="d">
-						<span class="property-value" aria-labelledby="documents-label"><g:link controller="document" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
-						</g:each>
+						<span class="property-value" aria-labelledby="documents-label"><g:fieldValue bean="${camperInstance}" field="documents"/></span>
 					
 				</li>
 				</g:if>

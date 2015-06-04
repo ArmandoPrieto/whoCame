@@ -22,7 +22,7 @@
 		
 		<div data-role="header" data-position="fixed">
 		<a href="index.html" data-icon="delete" data-theme="c">Cancel</a>
-  			<h1>${personType} ${attendanceType}</h1>
+  			<h1>${personType} ${attendanceType} ${grade.gradeName}</h1>
   		<a id="saveRecords" data-icon="check" data-theme="a">Save</a>
 		</div>
 		<div data-role="content" data-theme="a">

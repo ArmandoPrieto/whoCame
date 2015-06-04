@@ -43,15 +43,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${counselorTeamInstance?.headCounselor}">
-				<li class="fieldcontain">
-					<span id="headCounselor-label" class="property-label"><g:message code="counselorTeam.headCounselor.label" default="Head Counselor" /></span>
-					
-						<span class="property-value" aria-labelledby="headCounselor-label"><g:link controller="headCounselor" action="show" id="${counselorTeamInstance?.headCounselor?.id}">${counselorTeamInstance?.headCounselor?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
 			</ol>
 			<g:form url="[resource:counselorTeamInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">

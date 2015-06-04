@@ -32,15 +32,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${attendanceInstance?.board}">
-				<li class="fieldcontain">
-					<span id="board-label" class="property-label"><g:message code="attendance.board.label" default="Board" /></span>
-					
-						<span class="property-value" aria-labelledby="board-label"><g:link controller="board" action="show" id="${attendanceInstance?.board?.id}">${attendanceInstance?.board?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${attendanceInstance?.checkIn}">
 				<li class="fieldcontain">
 					<span id="checkIn-label" class="property-label"><g:message code="attendance.checkIn.label" default="Check In" /></span>
@@ -55,6 +46,15 @@
 					<span id="checkOut-label" class="property-label"><g:message code="attendance.checkOut.label" default="Check Out" /></span>
 					
 						<span class="property-value" aria-labelledby="checkOut-label"><g:link controller="attendanceValue" action="show" id="${attendanceInstance?.checkOut?.id}">${attendanceInstance?.checkOut?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${attendanceInstance?.board}">
+				<li class="fieldcontain">
+					<span id="board-label" class="property-label"><g:message code="attendance.board.label" default="Board" /></span>
+					
+						<span class="property-value" aria-labelledby="board-label"><g:link controller="board" action="show" id="${attendanceInstance?.board?.id}">${attendanceInstance?.board?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

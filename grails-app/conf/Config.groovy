@@ -122,6 +122,10 @@ grails.gorm.failOnError=true
 grails.plugin.springsecurity.rejectIfNoRule = false
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false
 grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+grails.plugin.springsecurity.logout.afterLogoutUrl = "/login/index"
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = "/main/mainBoard"
+
+
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.security.User'
@@ -136,8 +140,8 @@ grails.plugin.springsecurity.interceptUrlMap = [
 	'/**/js/**':                      ['permitAll'],
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
-	'/**/files/**':                  ['permitAll'],
+	'/**/files/**':                   ['permitAll'],
 	'/**/favicon.ico':                ['permitAll'],
-	'/main/**': ['permitAll'],
+	'/main/**':                       ['ROLE_HEAD_COUNSELOR','ROLE_HEAD_MASTER','ROLE_SUPER_USER']
 ]
 

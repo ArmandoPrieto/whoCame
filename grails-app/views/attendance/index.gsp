@@ -26,11 +26,11 @@
 					
 						<g:sortableColumn property="date" title="${message(code: 'attendance.date.label', default: 'Date')}" />
 					
-						<th><g:message code="attendance.board.label" default="Board" /></th>
-					
 						<th><g:message code="attendance.checkIn.label" default="Check In" /></th>
 					
 						<th><g:message code="attendance.checkOut.label" default="Check Out" /></th>
+					
+						<th><g:message code="attendance.board.label" default="Board" /></th>
 					
 					</tr>
 				</thead>
@@ -40,11 +40,11 @@
 					
 						<td><g:link action="show" id="${attendanceInstance.id}">${fieldValue(bean: attendanceInstance, field: "date")}</g:link></td>
 					
-						<td>${fieldValue(bean: attendanceInstance, field: "board")}</td>
-					
 						<td>${fieldValue(bean: attendanceInstance, field: "checkIn")}</td>
 					
 						<td>${fieldValue(bean: attendanceInstance, field: "checkOut")}</td>
+					
+						<td>${fieldValue(bean: attendanceInstance, field: "board")}</td>
 					
 					</tr>
 				</g:each>
