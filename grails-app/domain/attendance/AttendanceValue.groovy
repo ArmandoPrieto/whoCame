@@ -7,7 +7,7 @@ class AttendanceValue {
 	
 	DateTime time
 	boolean value
-	
+	static belongsTo = [attendance:Attendance]
 
 
 

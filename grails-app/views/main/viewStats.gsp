@@ -26,7 +26,7 @@
   		<a id="saveRecords" data-icon="gear" class="ui-btn-right" data-theme="${theme}">Options</a>
 		</div>
 		<div id="page-content" data-role="content" data-theme="${theme}">
-		
+		<h1>campers: ${campersAttendance} counselors: ${counselorsAttendance}</h1>
 			<table data-role="table" id="my-table" data-mode="reflow">
 		      <thead>
 		        <tr>

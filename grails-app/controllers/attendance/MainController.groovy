@@ -1,14 +1,23 @@
 package attendance
 
 import camp.Grade
+import camp.Counselor
+import camp.Camper
 import demographic.Person
+import attendance.Board
 import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormatter
+import org.joda.time.format.DateTimeFormat
+
+import org.jadira.usertype.dateandtime.joda.*
+
+
 
 class MainController {
 	def springSecurityService
 
    def index(){
-	   render(view: 'mainBoard',model:[grades: Grade.findAll()])
+	//   render(view: 'mainBoard',model:[grades: Grade.findAll()])
 	   }
    def attendanceInOrOut(){
 	   def grade = Grade.get(params.id)
@@ -24,15 +33,76 @@ class MainController {
 	  render(view: 'mainBoard',model:[grade: grade])
 	   }
    def statisticsDate(){
-	   render(view: 'statisticsDate')
+	  
+	   def user = springSecurityService.currentUser
+	   def grade = Grade.findByGradeName(user.username)
+	   
+	 
+	   render(view: 'statisticsDate',model:[grade: grade])
 	   
    }
    def attendanceDate(){
-	   render(view: 'statisticsDate')
+	    println "Date "+params.date
+	   DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+	   DateTime dt = formatter.parseDateTime(params.date);
+	   
+	   def user = springSecurityService.currentUser
+	   def grade = Grade.findByGradeName(user.username)
+	   
+	  /* grade.campers.each{ camper ->
+		   
+		   camper.bo
+		   
+	   }*/
+	   def c = Person.createCriteria()
+	   def dayAttendance = c.list () {
+		   boardAttendance{
+			   attendanceRecords{
+				   eq('date', dt)
+			   }
+		   'in'("person",grade.campers)
+		   }
+	   }
+	   println "que es esto" +dayAttendance
+	   render(view: 'attendanceDate')
 	   
    }
    def viewStats(){
-	   render(view: 'viewStats')
+	   DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+	   DateTime dt = formatter.parseDateTime(params.date);
+	   def user = springSecurityService.currentUser
+	   def grade = Grade.findByGradeName(user.username)
+	   
+	   def c = Board.createCriteria()
+	   def campersAttendance = c.count () {
+		   
+			   attendanceRecords{
+				   eq('date', dt)
+				   checkIn{
+					   eq('value',true)
+				   }
+			   }
+			   person{
+				   eq('class',camp.Camper)
+			   }
+			  		  
+	   }
+	   def c1 = Board.createCriteria()
+	   def counselorsAttendance = c1.count () {
+		   
+			   attendanceRecords{
+				   eq('date', dt)
+				   checkIn{
+					   eq('value',true)
+				   }
+			   }
+			   person{
+				   eq('class',camp.Counselor)
+			   }
+						
+	   }
+	   
+	   render(view: 'viewStats', model:[campersAttendance: campersAttendance,counselorsAttendance:counselorsAttendance])
 	   
    }
 	def takeRoll(){
@@ -41,10 +111,21 @@ class MainController {
 		Grade grade = Grade.get(params.id)
 		List persons
 		if(personType == "counselor"){
-			persons = grade.team.getCounselors()
+			def c = Counselor.createCriteria()
+			persons = c.list () {
+				order("name", "asc")
+				team {
+					eq("grade",grade)
+				}			
+			}
 			
 		}else if(personType == "camper"){
 			persons = grade.getCampers()
+			def c = Camper.createCriteria()
+			persons = c.list () {
+				order("name", "asc")
+				eq("camperGrade",grade)
+			}
 		
 		}else if(personType == "headStaff"){
 		
@@ -67,35 +148,73 @@ class MainController {
 	}
 	
 	def saveTakeRoll(){
-		 
-		params['checkbox-attendance'].each{
+		DateTime aux = new DateTime()
+		AttendanceValue checkIn =null
+		AttendanceValue checkOut =null
+		Attendance newAttendance = null
+		
+		def check = params.list('checkbox-attendance')
+			check.each{
 			 
 			Person person = Person.get(it)
-			Attendance attendance = new Attendance()
-			AttendanceValue checkIn =null
-			AttendanceValue checkOut =null
-			if(params.attendanceType == "checkOut"){
-				checkOut = new AttendanceValue()
-				checkOut.time = new DateTime()
-				checkOut.value = true
-				checkOut.save()
-			}else if(params.attendanceType == "checkIn"){
-				checkIn = new AttendanceValue()
-				checkIn.time = new DateTime()
-				checkIn.value = true
-				checkIn.save()
+			if(!person?.boardAttendance){
+				Board board = new Board()
+				person.setBoardAttendance(board)
+				
+				newAttendance = new Attendance()
+				
+			}else{
+				
+				def a = Attendance.createCriteria()
+					def attendance = a.list () {
+						eq('date', aux.withTimeAtStartOfDay())
+						eq('board',person.boardAttendance)
+					}
+				
+				if(attendance){
+				//Attendance date already exist
+					attendance.each{
+						
+						newAttendance = it
+						}
+				}else{
+				//Attendance date does not exist
+					newAttendance = new Attendance()
 				}
-			attendance.checkIn = checkIn
-			attendance.checkOut = checkOut
-			if(!person.boardAttendance){
-				person.boardAttendance = new Board()
-			}
-			DateTime aux = new DateTime()
-			attendance.date = aux.withTimeAtStartOfDay()
-			person.boardAttendance.addToAttendanceRecords(attendance)
+			}	
+				if(params.attendanceType == "checkOut"){
+					checkOut = new AttendanceValue()
+					checkOut.time = new DateTime()
+					checkOut.value = true
+					checkOut.setAttendance(newAttendance)
+					if(newAttendance?.checkOut){
+						newAttendance.checkOut.delete()
+					}
+					newAttendance.setCheckOut(checkOut)
+					
+				}else if(params.attendanceType == "checkIn"){
+					checkIn = new AttendanceValue()
+					checkIn.time = new DateTime()
+					checkIn.value = true
+					checkIn.setAttendance(newAttendance)
+					if(newAttendance?.checkIn){
+						newAttendance.checkIn.delete()
+					}
+					newAttendance.setCheckIn(checkIn)
+				
+					
+					}
+				
+			
+			newAttendance.date = aux.withTimeAtStartOfDay()
+			person.boardAttendance.addToAttendanceRecords(newAttendance)
 			try{
 				if(!person.save()){
 					throw new Exception ("Exception taking roll on person")
+				}else{
+				flash.message = "Attendance {0} sheet saved"
+				flash.args = [params.attendanceType]
+				flash.default = "Attendance sheet saved"
 				}
 			}catch(Exception e){
 				println "***********---------***********"
@@ -104,8 +223,11 @@ class MainController {
 					println error.toString()
 				}
 				println "***********---------***********"
+				flash.error = "Attendance sheet not saved"
 			}
 		 }
-		render(view: 'index')
+			
+			
+		redirect(controller: 'main',action:'mainBoard')
 	}
 }

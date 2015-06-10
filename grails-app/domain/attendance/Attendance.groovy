@@ -18,6 +18,7 @@ class Attendance {
 		date(nullable: true)
 		checkIn(unique: true, nullable: true)
 		checkOut(unique: true, nullable: true)
+		
     }
 	
 	static mapping = {

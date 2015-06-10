@@ -11,13 +11,7 @@
 </head>
 <body>
 
-	<script>
-			$( document ).ready(function() {
-			
-			});
-			
-	</script>
-	
+		
 	<g:set var="theme" value="a" />
 	<div id="page" data-role="page"  data-theme="${theme}">
 		
@@ -28,7 +22,7 @@
 		</div>
 		<div id="page-content" data-role="content" data-theme="${theme}">
 		<g:form action="viewStats">
-			<input data-role="date" data-inline="true" type="text">
+			<input name="date" data-role="date" data-inline="true" type="text">
 			<input type="submit" value="View Stats">
 		</g:form>		
 		</div>

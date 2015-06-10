@@ -4,9 +4,7 @@
 	<meta name="layout" content="jqueryMobile">
 	
 	
-  	 <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.mobile.datepicker.css')}"/>
-	 <script src="${resource(dir: 'js', file: 'jquery.ui.datepicker.js')}"></script>
-    <script src="${resource(dir: 'js', file: 'jquery.mobile.datepicker.js')}"></script>
+  
   	
 </head>
 <body>
@@ -28,7 +26,7 @@
 		</div>
 		<div id="page-content" data-role="content" data-theme="${theme}">
 		<g:form action="viewStats">
-			<input data-role="date" data-inline="true" type="text">
+			<input name="date" data-role="date" data-inline="true" type="text">
 			<input type="submit" value="View Stats">
 		</g:form>		
 		</div>

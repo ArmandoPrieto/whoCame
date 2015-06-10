@@ -14,18 +14,19 @@
 			
 			});
 			
+			
 	</script>
 	
 	<g:set var="theme" value="a" />
 	<div id="page" data-role="page"  data-theme="${theme}">
 		
 		<div data-role="header" data-position="fixed" >
-		
+			<g:link controller="main" action="mainBoard" data-icon="delete" >Cancel</g:link>
   			<h1>whoCame ${grade.gradeName}</h1>
-  		<a id="saveRecords" data-icon="gear" class="ui-btn-right" data-theme="${theme}">Options</a>
+  		
 		</div>
 		<div id="page-content" data-role="content" data-theme="${theme}">
-		<g:form action="takeRoll" id="${grade.id}" method="get">
+		<g:form action="takeRoll" id="${grade.id}" method="get" >
       	
 		<fieldset data-role="controlgroup">
 			  <legend>Take attendance for:</legend>
@@ -34,9 +35,15 @@
 			 
 			  <input type="radio" name="personType" id="radio-choice-2" value="counselor">
 			  <label for="radio-choice-2">Counselors</label>
+			 <sec:ifAnyGranted roles="ROLE_HEAD_MASTER,ROLE_SUPER_USER">
 			 
-			  <input type="radio" name="personType" id="radio-choice-3" value="headStaff">
+			 	  <input type="radio" name="personType" id="radio-choice-3" value="headStaff">
 			  <label for="radio-choice-3">Head Staff</label>
+			 
+			 </sec:ifAnyGranted>
+			 
+			 
+			
 			 
 			  
 		</fieldset>
