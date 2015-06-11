@@ -30,6 +30,13 @@
 		 --%>
 <script>
 	$(document).on("pagecreate", function(event) {
+		$(".centerText").css('text-align','center');
+		$(".borderLeft").css("border-left","solid 1px rgba(0, 0, 0, 0.05)");
+		$(".borderRight").css("border-right","solid 1px rgba(0, 0, 0, 0.05)");
+		
+		$("tr:even").css("background-color", "#eeeeee");
+		$("tr:odd").css("background-color", "#ffffff");
+		
 		// alert("pagecreate event fired!");
 		$('#saveAttendance').bind('click', function() {
 			//Place code here
