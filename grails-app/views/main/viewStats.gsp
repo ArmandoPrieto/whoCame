@@ -27,24 +27,34 @@
 		</div>
 		<div id="page-content" data-role="content" data-theme="${theme}">
 		<h1>campers: ${campersAttendance} counselors: ${counselorsAttendance}</h1>
-			<table data-role="table" id="my-table" data-mode="reflow">
+			<table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive">
 		      <thead>
 		        <tr>
-		          <th>Rank</th>
-		          <th>Movie Title</th>
-		          <th>Year</th>
-		          <th><abbr title="Rotten Tomato Rating">Rating</abbr></th>
-		          <th>Reviews</th>
+		          <th>Grade</th>
+		          <th><abbr title="Check In">Campers Check In</abbr></th>
+		          <th><abbr title="Check Out">Campers Check Out</abbr></th>
+		          <th><abbr title="Atte Rate">Attendance rate</abbr></th>
+		          
+		          <th><abbr title="Check In">Counselors Check In</abbr></th>
+		          <th><abbr title="Check Out">Counselors Check Out</abbr></th>
+		          <th><abbr title="Atte Rate">Attendance rate</abbr></th>
+		          
+		          
 		        </tr>
 		      </thead>
 		      <tbody>
+		       <g:each in="${gradeStats}">
 		        <tr>
-		          <th>1</th>
-		          <td><a href="foo.com" data-rel="external">Citizen Kane</a></td>
-		          <td>1941</td>
-		          <td>100%</td>
-		          <td>74</td>
+		          <th>${it.gradeName}</th>
+		          <td>${it.campersCheckIn}</td>
+		          <td>${it.campersCheckOut}</td>
+		           <td>${it.totalCampers}</td>
+		          <td>${it.counselorsCheckIn}</td>
+		          <td>${it.counselorsCheckOut}</td>
+		           <td>${it.totalCounselors}</td>
+		      
 		        </tr>
+		      </g:each>
 		      </tbody>
 	   		</table>
 		</div>

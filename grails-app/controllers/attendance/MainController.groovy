@@ -15,6 +15,7 @@ import org.jadira.usertype.dateandtime.joda.*
 
 class MainController {
 	def springSecurityService
+	def statsService
 
    def index(){
 	//   render(view: 'mainBoard',model:[grades: Grade.findAll()])
@@ -49,11 +50,7 @@ class MainController {
 	   def user = springSecurityService.currentUser
 	   def grade = Grade.findByGradeName(user.username)
 	   
-	  /* grade.campers.each{ camper ->
-		   
-		   camper.bo
-		   
-	   }*/
+	 
 	   def c = Person.createCriteria()
 	   def dayAttendance = c.list () {
 		   boardAttendance{
@@ -63,7 +60,7 @@ class MainController {
 		   'in'("person",grade.campers)
 		   }
 	   }
-	   println "que es esto" +dayAttendance
+	 
 	   render(view: 'attendanceDate')
 	   
    }
@@ -73,36 +70,32 @@ class MainController {
 	   def user = springSecurityService.currentUser
 	   def grade = Grade.findByGradeName(user.username)
 	   
-	   def c = Board.createCriteria()
-	   def campersAttendance = c.count () {
+	
+	   def campersAttendance = statsService.campersAttendance(dt)
+	   def counselorsAttendance = statsService.counselorsAttendance(dt)
+	   
+	   List gradeStats =new ArrayList<GradeStats>()
+	   Grade.list().each{ grades ->
+		   GradeStats gStats = new GradeStats()
 		   
-			   attendanceRecords{
-				   eq('date', dt)
-				   checkIn{
-					   eq('value',true)
-				   }
-			   }
-			   person{
-				   eq('class',camp.Camper)
-			   }
-			  		  
-	   }
-	   def c1 = Board.createCriteria()
-	   def counselorsAttendance = c1.count () {
-		   
-			   attendanceRecords{
-				   eq('date', dt)
-				   checkIn{
-					   eq('value',true)
-				   }
-			   }
-			   person{
-				   eq('class',camp.Counselor)
-			   }
-						
+		   def campersCheckIn = statsService.campersCheckIn(grades, dt)
+		   def campersCheckOut = statsService.campersCheckOut(grades, dt)
+		   def counselorsCheckIn = statsService.counselorsCheckIn(grades, dt)
+		   def counselorsCheckOut = statsService.counselorsCheckOut(grades, dt)
+		   gStats.setCampersCheckIn(campersCheckIn)
+		   gStats.setCampersCheckOut(campersCheckOut)
+		   gStats.setCounselorsCheckIn(counselorsCheckIn)
+		   gStats.setCounselorsCheckOut(counselorsCheckOut)
+		   gStats.setTotalCampers(statsService.getTotalCampersByGrade(grades))
+		   gStats.setTotalCounselors(statsService.getTotalCounselorsByGrade(grades))
+		   gStats.setGradeId(grades.id)
+		   gStats.setGradeName(grades.gradeName)
+		   gradeStats.add(gStats)
 	   }
 	   
-	   render(view: 'viewStats', model:[campersAttendance: campersAttendance,counselorsAttendance:counselorsAttendance])
+	   render(view: 'viewStats', model:[campersAttendance: campersAttendance,
+		   								counselorsAttendance:counselorsAttendance,
+										gradeStats:gradeStats])
 	   
    }
 	def takeRoll(){
