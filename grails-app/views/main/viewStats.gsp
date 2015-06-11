@@ -28,46 +28,52 @@
 		<div id="page-content" data-role="content" data-theme="${theme}">
 		<h1>campers: ${campersAttendance} counselors: ${counselorsAttendance}</h1>
 		
+	<div data-role="popup" id="table-column-toggle-popup" class="ui-table-columntoggle-popup">
+  <fieldset data-role="controlgroup">
+    <label>Grade<input type="checkbox" checked data-cacheval="false" locked="true"></input></label>
+    <label>Campers<input type="checkbox" checked data-cacheval="false" locked="true"></input></label>
+    <label>Counselors<input type="checkbox" checked data-cacheval="false" locked="true"></input></label>
+   
+    
+  </fieldset>
+</div>
+<a href="#table-column-toggle-popup" class="ui-table-columntoggle-btn ui-btn ui-btn-b ui-corner-all ui-shadow ui-mini" data-rel="popup">Columns...</a>
+<table data-role="table" id="table-column-toggle" data-mode="columntoggle" data-enhanced="true" class="ui-table ui-table-columntoggle" data-column-btn-theme="b">	
 		
 		
-		
-			<table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive table-stroke">
+			<%-- <table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive table-stroke">--%>
 		  
 		      <thead>
 		        <tr>
-		          <th>Grade</th>
-		          <th colspan="4" class="centerText borderLeft">Campers</th>
-  				  <th colspan="4" class="centerText borderLeft">Counselors</th>
+		          <th data-priority="1" data-colstart="1" class="ui-table-cell-visible">Grade</th>
+		          <th data-priority="4" data-colstart="2" class="ui-table-cell-visible centerText borderLeft" colspan=4>Campers</th>
+  				  <th data-priority="4" data-colstart="3" class="ui-table-cell-visible centerText borderLeft" colspan=4 >Counselors</th>
   				</tr>
-  				<tr>
-		          <th></th>
-		          <th class="borderLeft"><abbr title="CheckIn">Check In</abbr></th>
-		          <th><abbr title="CheckOut">Check Out</abbr></th>
-		          <th><abbr title="Atte Percent">Attendance Percent</abbr></th>
-		          <th><abbr title="T# Campers">Total# Campers</abbr></th>
-		          <th class="borderLeft"><abbr title="CheckIn">Check In</abbr></th>
-		          <th><abbr title="CheckOut">Check Out</abbr></th>
-		          <th><abbr title="Atte Percent">Attendance Percent</abbr></th>
-		        	<th><abbr title="T# Counselors">Total# Counselors</abbr></th>
+  			 	<tr>
+		          <th data-priority="1" data-colstart="1" class="ui-table-cell-visible"></th>
+		          <th data-priority="4" data-colstart="2" class="ui-table-cell-visible borderLeft"><abbr title="CheckIn">Check In</abbr></th>
+		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="CheckOut">Check Out</abbr></th>
+		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="Atte Percent">Attendance Percent</abbr></th>
+		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="T# Campers">Total# Campers</abbr></th>
+		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible borderLeft"><abbr title="CheckIn">Check In</abbr></th>
+		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="CheckOut">Check Out</abbr></th>
+		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="Atte Percent">Attendance Percent</abbr></th>
+		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="T# Counselors">Total# Counselors</abbr></th>
 		          
 		        </tr>
-  			 </thead>
-		      
-
-		     
+			 </thead>
 		      <tbody>
-		        
 		       <g:each in="${gradeStats}">
 		        <tr>
-		          <th >${it.gradeName}</th>
-		          <td class="borderLeft">${it.campersCheckIn}</td>
-		          <td>${it.campersCheckOut}</td>
-		           <td>${it.totalCampers!=0?(it.campersCheckIn*100).intdiv(it.totalCampers):0}%</td>
-		           <td>${it.totalCampers}</td>
-		          <td class="borderLeft">${it.counselorsCheckIn}</td>
-		          <td>${it.counselorsCheckOut}</td>
-		           <td>${it.totalCounselors!=0?(it.counselorsCheckIn*100).intdiv(it.totalCounselors):0}%</td>
-		        <td>${it.totalCounselors}</td>
+		          <th class="ui-table-priority-2 ui-table-cell-visible">${it.gradeName}</th>
+		          <td class="ui-table-priority-2 ui-table-cell-visible">${it.campersCheckIn}</td>
+		          <td class="ui-table-priority-2 ui-table-cell-visible">${it.campersCheckOut}</td>
+		           <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCampers!=0?(it.campersCheckIn*100).intdiv(it.totalCampers):0}%</td>
+		           <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCampers}</td>
+		          <td class="ui-table-priority-2 ui-table-cell-visible" >${it.counselorsCheckIn}</td>
+		          <td class="ui-table-priority-2 ui-table-cell-visible">${it.counselorsCheckOut}</td>
+		           <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCounselors!=0?(it.counselorsCheckIn*100).intdiv(it.totalCounselors):0}%</td>
+		        <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCounselors}</td>
 		        </tr>
 		      </g:each>
 		      </tbody>
