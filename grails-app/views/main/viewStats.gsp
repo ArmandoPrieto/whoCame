@@ -38,27 +38,27 @@
   </fieldset>
 </div>
 <a href="#table-column-toggle-popup" class="ui-table-columntoggle-btn ui-btn ui-btn-b ui-corner-all ui-shadow ui-mini" data-rel="popup">Columns...</a>
-<table data-role="table" id="table-column-toggle" data-mode="columntoggle" data-enhanced="true" class="ui-table ui-table-columntoggle" data-column-btn-theme="b">	
+<%-- <table data-role="table" id="table-column-toggle" data-mode="columntoggle" data-enhanced="true" class="ui-table ui-table-columntoggle" data-column-btn-theme="b">	
+		--%>
 		
-		
-			<%-- <table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive table-stroke">--%>
+			<table data-role="table" id="my-table" data-mode="reflow" class="ui-responsive table-stroke">
 		  
 		      <thead>
 		        <tr>
 		          <th data-priority="1" data-colstart="1" class="ui-table-cell-visible">Grade</th>
-		          <th data-priority="4" data-colstart="2" class="ui-table-cell-visible centerText borderLeft" colspan=4>Campers</th>
-  				  <th data-priority="4" data-colstart="3" class="ui-table-cell-visible centerText borderLeft" colspan=4 >Counselors</th>
+		          <th data-priority="1" data-colstart="2" class="ui-table-cell-visible centerText borderLeft" colspan=4>Campers</th>
+  				  <th data-priority="1" data-colstart="3" class="ui-table-cell-visible centerText borderLeft" colspan=4 >Counselors</th>
   				</tr>
   			 	<tr>
 		          <th data-priority="1" data-colstart="1" class="ui-table-cell-visible"></th>
-		          <th data-priority="4" data-colstart="2" class="ui-table-cell-visible borderLeft"><abbr title="CheckIn">Check In</abbr></th>
-		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="CheckOut">Check Out</abbr></th>
-		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="Atte Percent">Attendance Percent</abbr></th>
-		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="T# Campers">Total# Campers</abbr></th>
-		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible borderLeft"><abbr title="CheckIn">Check In</abbr></th>
-		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="CheckOut">Check Out</abbr></th>
-		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="Atte Percent">Attendance Percent</abbr></th>
-		          <th data-priority="4" data-colstart="3" class="ui-table-cell-visible"><abbr title="T# Counselors">Total# Counselors</abbr></th>
+		          <th data-priority="1" data-colstart="2" class="ui-table-cell-visible borderLeft"><abbr title="CheckIn">Check In</abbr></th>
+		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="CheckOut">Check Out</abbr></th>
+		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="Atte Percent">Attendance Percent</abbr></th>
+		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="T# Campers">Total# Campers</abbr></th>
+		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible borderLeft"><abbr title="CheckIn">Check In</abbr></th>
+		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="CheckOut">Check Out</abbr></th>
+		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="Atte Percent">Attendance Percent</abbr></th>
+		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="T# Counselors">Total# Counselors</abbr></th>
 		          
 		        </tr>
 			 </thead>

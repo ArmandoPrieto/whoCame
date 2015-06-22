@@ -27,6 +27,8 @@ class StatsService {
 		return campersAttendance
 	}
 	def counselorsAttendance(DateTime dt){
+		
+		
 		def c1 = Board.createCriteria()
 		def counselorsAttendance = c1.count () {
 

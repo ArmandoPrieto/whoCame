@@ -26,14 +26,23 @@
 			<g:form id="attendanceForm" name="attendanceForm" controller="main" action="saveTakeRoll">
 			<input type="hidden" value="${attendanceType}" name="attendanceType">
 			  <fieldset data-role="controlgroup" >
-			 
+			
 			 	<g:each in="${persons}">
-			      <label><input class="attendance" 
+			      <label>
+			      
+			      <g:if test="${attendanceMap[it.id]}">
+			       		<g:set var="check" value="${' checked '}" />
+			      </g:if>
+			      <g:else>
+			      		 <g:set var="check" value="${' '}" />
+			      </g:else>
+			      
+			      <input class="attendance" 
 			      				type="checkbox" id="checkbox${it.id}" 
 			      				name="checkbox-attendance"  
 			      				value="${it.id}" 
 			      				data-iconpos="right"
-			      				checked="checked" 
+			      				${check}
 			      				> ${it.name} </label>
 			       
 				</g:each>

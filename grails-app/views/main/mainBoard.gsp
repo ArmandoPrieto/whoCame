@@ -58,6 +58,12 @@
 		</g:form>
 		
 		
+			 
+			 <g:form action="statisticsDate" id="${grade.id}" method="get">
+      		<input type="submit" value="Download Data">
+		</g:form>
+			 
+			
 			
 		</div>
 		

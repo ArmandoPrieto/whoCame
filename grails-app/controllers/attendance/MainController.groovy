@@ -1,5 +1,6 @@
 package attendance
 
+import attendance.Attendance
 import camp.Grade
 import camp.Counselor
 import camp.Camper
@@ -126,8 +127,39 @@ class MainController {
 		//Error
 		render(view: 'index')
 		}
+		DateTime date = new DateTime().withTimeAtStartOfDay()
+	
 		
-		DateTime date = new DateTime()
+		def attendanceMap = [:]
+		persons.each{ person ->
+			
+			if(person.boardAttendance){
+				def c1 = Attendance.createCriteria()
+				def att = c1.list {
+					eq('board', person.boardAttendance)
+					eq('date', date)
+				}
+				if(att){
+					if(attendanceType=="checkIn"){
+						attendanceMap[person.id] =  att[0].checkIn.value?:false
+					}else if(attendanceType=="checkOut"){
+						attendanceMap[person.id] =  att[0].checkOut.value?:false
+					}
+					
+			  }else{
+			  println('No att')
+				  attendanceMap[person.id] = false
+			  }
+			  
+			}else{
+			println('No board')
+				attendanceMap[person.id] = false
+			}
+			
+			
+		}
+		
+		
 		
 		
 		render(view: 'takeRoll',
@@ -136,7 +168,8 @@ class MainController {
 					date: date.withTimeAtStartOfDay().toDate(),
 					personType: personType,
 					attendanceType: attendanceType,
-					grade: grade])
+					grade: grade,
+					attendanceMap: attendanceMap])
 		
 	}
 	
