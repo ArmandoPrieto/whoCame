@@ -87,7 +87,9 @@ grails.hibernate.osiv.readonly = false
 
 environments {
     development {
-        grails.logging.jul.usebridge = true
+        grails.converters.json.pretty.print = true
+		grails.logging.jul.usebridge = true
+		fileTmp.download.directory.tmp = 'download/tmp'
     }
     production {
         grails.logging.jul.usebridge = false

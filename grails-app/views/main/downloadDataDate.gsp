@@ -17,13 +17,13 @@
 		
 		<div data-role="header" data-position="fixed" >
 		
-  			<h1>whoCame Stats ${grade.gradeName}</h1>
-  			<g:link controller="main" action="mainBoard" data-icon="back" >Go back</g:link>
+  			<h1>whoCame Download</h1>
+  		
 		</div>
 		<div id="page-content" data-role="content" data-theme="${theme}">
-		<g:form action="viewStats">
+		<g:form action="downloadData"  data-ajax="false">
 			<input name="date" data-role="date" data-inline="true" type="text">
-			<input type="submit" value="View Stats">
+			<input type="submit" value="Download">
 		</g:form>		
 		</div>
 		

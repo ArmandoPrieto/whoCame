@@ -47,21 +47,26 @@ class BootStrap {
 			user.setUsername(it)
 			user.password="0000"
 			user.save()
+			if(it=="HeadMaster"){
 			
-			UserRole.create(user, r3)
-			
+			UserRole.create(user, r4)
+			}else if(it=="Director"){
+			UserRole.create(user, r5)
+			}else{
+				UserRole.create(user, r3)
+			}
+	
+		
 			}
 		println 'GradeSave: '+gradeSave
 		
 		
 		println "-----------------------------------------------------------------"
 		println "-----------------------------------------------------------------"
-		
-			}
-			
 		}
 		
 		}
+    }
     def destroy = {
     }
 }

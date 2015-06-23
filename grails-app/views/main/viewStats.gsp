@@ -23,11 +23,11 @@
 		<div data-role="header" data-position="fixed" >
 		
   			<h1>whoCame Stats</h1>
-  		<a id="saveRecords" data-icon="gear" class="ui-btn-right" data-theme="${theme}">Options</a>
+  			<g:link controller="main" action="mainBoard" data-icon="back" >Go back</g:link>
 		</div>
 		<div id="page-content" data-role="content" data-theme="${theme}">
 		<h1>campers: ${campersAttendance} counselors: ${counselorsAttendance}</h1>
-		
+<%--		
 	<div data-role="popup" id="table-column-toggle-popup" class="ui-table-columntoggle-popup">
   <fieldset data-role="controlgroup">
     <label>Grade<input type="checkbox" checked data-cacheval="false" locked="true"></input></label>
@@ -36,8 +36,10 @@
    
     
   </fieldset>
-</div>
+</div> 
 <a href="#table-column-toggle-popup" class="ui-table-columntoggle-btn ui-btn ui-btn-b ui-corner-all ui-shadow ui-mini" data-rel="popup">Columns...</a>
+
+--%>
 <%-- <table data-role="table" id="table-column-toggle" data-mode="columntoggle" data-enhanced="true" class="ui-table ui-table-columntoggle" data-column-btn-theme="b">	
 		--%>
 		

@@ -21,7 +21,7 @@
 	<div id="page" data-role="page"  data-theme="${theme}">
 		
 		<div data-role="header" data-position="fixed" >
-			<g:link controller="main" action="mainBoard" data-icon="delete" >Cancel</g:link>
+			<g:link controller="main" action="mainBoard" data-icon="back" >Go back</g:link>
   			<h1>whoCame ${grade.gradeName}</h1>
   		
 		</div>
