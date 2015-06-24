@@ -14,7 +14,12 @@ class ImporterController {
 	
 	def counselorImporter(){
 		boolean importProcess = true
-		def filename = 'web-app/files/counselor.xlsx'
+		
+		
+		//String filename = this.getServletConfig().getServletContext().getResourceAsStream("/files/counselor.xlsx");
+	//	println("HOLA::::::"+System.getenv('OPENSHIFT_DATA_DIR'))
+		String filename= g.resource(dir: 'files', file: 'counselor.xlsx', absolute: true)
+		println("---------->"+filename)
 		boolean append = false
 		if(!append){
 			Counselor.findAll().each {

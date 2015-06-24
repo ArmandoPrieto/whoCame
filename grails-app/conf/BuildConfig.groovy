@@ -92,3 +92,20 @@ grails.project.dependency.resolution = {
         //compile ":handlebars-asset-pipeline:1.3.0.3"
     }
 }
+
+grails.project.war.file = "target/ROOT.war"
+
+// This closure is passed the command line arguments used to start the
+// war process.
+grails.war.copyToWebApp = { args ->
+    fileset(dir:"web-app") {
+        include(name: "js/**")
+        include(name: "css/**")
+		include(name: "files/**")
+		include(name: "images/**")
+		include(name: "img/**")
+		include(name: "download/**")
+        include(name: "WEB-INF/**")
+    }
+}
+

@@ -25,7 +25,8 @@ class MainController {
 	def statsService
 
 	def index(){
-		//   render(view: 'mainBoard',model:[grades: Grade.findAll()])
+		//render(view: 'mainBoard',model:[grades: Grade.findAll()])
+		redirect(action:"mainBoard")
 	}
 	def attendanceInOrOut(){
 		def grade = Grade.get(params.id)
@@ -146,12 +147,12 @@ class MainController {
 					}
 
 				}else{
-					println('No att')
+					
 					attendanceMap[person.id] = false
 				}
 
 			}else{
-				println('No board')
+			
 				attendanceMap[person.id] = false
 			}
 

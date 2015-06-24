@@ -40,7 +40,7 @@
 		// alert("pagecreate event fired!");
 		$('#saveAttendance').bind('click', function() {
 			//Place code here
-			alert("I am an alert box!");
+			
 			$("#attendanceForm").submit();
 		});
 

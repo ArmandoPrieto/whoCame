@@ -89,11 +89,14 @@ environments {
     development {
         grails.converters.json.pretty.print = true
 		grails.logging.jul.usebridge = true
+		filesImporter.directory = 'files/'
 		fileTmp.download.directory.tmp = 'download/tmp'
     }
     production {
         grails.logging.jul.usebridge = false
         // TODO: grails.serverURL = "http://www.changeme.com"
+		filesImporter.directory = 'files/'
+		fileTmp.download.directory.tmp = 'download/tmp'
     }
 }
 

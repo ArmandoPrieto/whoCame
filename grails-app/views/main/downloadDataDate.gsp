@@ -18,7 +18,8 @@
 		<div data-role="header" data-position="fixed" >
 		
   			<h1>whoCame Download</h1>
-  		
+  			<g:link controller="main" action="mainBoard" data-icon="back" >Go back</g:link>
+	
 		</div>
 		<div id="page-content" data-role="content" data-theme="${theme}">
 		<g:form action="downloadData"  data-ajax="false">
