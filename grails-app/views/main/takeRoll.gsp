@@ -25,6 +25,7 @@
 			
 			<g:form id="attendanceForm" name="attendanceForm" controller="main" action="saveTakeRoll">
 			<input type="hidden" value="${attendanceType}" name="attendanceType">
+			<input type="hidden" value="${personType}" name="personType">
 			  <fieldset data-role="controlgroup" >
 			
 			 	<g:each in="${persons}">

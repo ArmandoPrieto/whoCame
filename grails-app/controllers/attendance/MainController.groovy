@@ -128,8 +128,6 @@ class MainController {
 			render(view: 'index')
 		}
 		DateTime date = new DateTime().withTimeAtStartOfDay()
-
-
 		def attendanceMap = [:]
 		persons.each{ person ->
 
@@ -141,22 +139,16 @@ class MainController {
 				}
 				if(att){
 					if(attendanceType=="checkIn"){
-						attendanceMap[person.id] =  att[0].checkIn.value?:false
+						attendanceMap[person.id] =  att[0]?.checkIn?.value?:false
 					}else if(attendanceType=="checkOut"){
-						attendanceMap[person.id] =  att[0].checkOut.value?:false
+						attendanceMap[person.id] =  att[0]?.checkOut?.value?:false
 					}
-
-				}else{
-					
-					attendanceMap[person.id] = false
 				}
-
-			}else{
-			
-				attendanceMap[person.id] = false
 			}
 
-
+			if(!attendanceMap[person.id]){
+				attendanceMap[person.id] =false
+			}
 		}
 
 
@@ -174,15 +166,32 @@ class MainController {
 	}
 
 	def saveTakeRoll(){
+		def user = springSecurityService.currentUser
+		def grade = Grade.findByGradeName(user.username)
+		def gradePersonsList
+		if(params.personType == "camper"){
+			gradePersonsList = grade.campers
+		}else if(params.personType == "counselor"){
+			gradePersonsList = grade.team.counselors
+		}
+		
 		DateTime aux = new DateTime()
 		AttendanceValue checkIn =null
 		AttendanceValue checkOut =null
 		Attendance newAttendance = null
-
+		boolean attendanceValue
+		 
 		def check = params.list('checkbox-attendance')
-		check.each{
-
-			Person person = Person.get(it)
+		gradePersonsList.each{ person ->
+			
+			if(check.contains(person.id.toString())){
+			
+				attendanceValue = true
+			}else{
+				attendanceValue = false
+			}
+			
+			
 			if(!person?.boardAttendance){
 				Board board = new Board()
 				person.setBoardAttendance(board)
@@ -206,26 +215,38 @@ class MainController {
 				}
 			}
 			if(params.attendanceType == "checkOut"){
-				checkOut = new AttendanceValue()
-				checkOut.time = new DateTime()
-				checkOut.value = true
-				checkOut.setAttendance(newAttendance)
 				if(newAttendance?.checkOut){
-					newAttendance.checkOut.delete()
+					checkOut = newAttendance.checkOut
+				}else{
+					checkOut = new AttendanceValue()
 				}
+				if(checkOut.value != attendanceValue){
+					if(attendanceValue==false){
+						checkOut.time = null
+					}else{
+						checkOut.time = new DateTime()
+					}
+					checkOut.value = attendanceValue
+				}
+				checkOut.setAttendance(newAttendance)
 				newAttendance.setCheckOut(checkOut)
 
 			}else if(params.attendanceType == "checkIn"){
-				checkIn = new AttendanceValue()
-				checkIn.time = new DateTime()
-				checkIn.value = true
-				checkIn.setAttendance(newAttendance)
 				if(newAttendance?.checkIn){
-					newAttendance.checkIn.delete()
+					checkIn = newAttendance.checkIn
+				}else{
+					checkIn = new AttendanceValue()
 				}
+				if(checkIn.value != attendanceValue){
+					if(attendanceValue==false){
+						checkIn.time = null
+					}else{
+						checkIn.time = new DateTime()
+					}
+					checkIn.value = attendanceValue
+				}
+				checkIn.setAttendance(newAttendance)
 				newAttendance.setCheckIn(checkIn)
-
-
 			}
 
 

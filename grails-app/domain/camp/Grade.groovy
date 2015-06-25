@@ -16,16 +16,15 @@ class Grade {
 			"K1",
 			"1st",
 			"2nd",
-			"3th",
+			"3rd",
 			"4th",
 			"5th",
 			"6th",
 			"Boys",
 			"Girls",
 			"ReCrew",
-			"Liturgy",
+			"Ext. Care",
 			"Lifeguard",
-			"Assistant",
 			"Director",
 			"HeadMaster"
 		])
