@@ -14,7 +14,6 @@ class Grade {
 		gradeName( inList: [
 			"TK",
 			"K1",
-			"1st",
 			"2nd",
 			"3rd",
 			"4th",
@@ -24,9 +23,15 @@ class Grade {
 			"Girls",
 			"ReCrew",
 			"Ext. Care",
-			"Lifeguard",
+			"Liturgy",
+			"Administration",
 			"Director",
 			"HeadMaster"
 		])
     }
+	
+	public String toString(){
+		
+		return gradeName
+	}
 }

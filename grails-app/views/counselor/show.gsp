@@ -41,7 +41,7 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${counselorInstance?.documents}">
+			<%--	<g:if test="${counselorInstance?.documents}">
 				<li class="fieldcontain">
 					<span id="documents-label" class="property-label"><g:message code="counselor.documents.label" default="Documents" /></span>
 					
@@ -49,7 +49,7 @@
 					
 				</li>
 				</g:if>
-			
+			 --%>
 				<g:if test="${counselorInstance?.personAddress}">
 				<li class="fieldcontain">
 					<span id="personAddress-label" class="property-label"><g:message code="counselor.personAddress.label" default="Person Address" /></span>

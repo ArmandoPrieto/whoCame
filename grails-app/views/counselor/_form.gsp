@@ -19,16 +19,14 @@
 	<g:datePicker name="birthDate" precision="day"  value="${counselorInstance?.birthDate}" default="none" noSelection="['': '']" />
 
 </div>
-
+<%-- 
 <div class="fieldcontain ${hasErrors(bean: counselorInstance, field: 'documents', 'error')} ">
 	<label for="documents">
 		<g:message code="counselor.documents.label" default="Documents" />
 		
 	</label>
-	
-
 </div>
-
+--%>
 <div class="fieldcontain ${hasErrors(bean: counselorInstance, field: 'personAddress', 'error')} ">
 	<label for="personAddress">
 		<g:message code="counselor.personAddress.label" default="Person Address" />
@@ -106,7 +104,7 @@
 		<g:message code="counselor.team.label" default="Team" />
 		
 	</label>
-	<g:select id="team" name="team.id" from="${camp.CounselorTeam.list()}" optionKey="id" value="${counselorInstance?.team?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="team" name="team.id" from="${camp.CounselorTeam.list()}" optionKey="id" optionValue="grade" value="${counselorInstance?.team?.id}" class="many-to-one" noSelection="['null': '']"/>
 
 </div>
 
