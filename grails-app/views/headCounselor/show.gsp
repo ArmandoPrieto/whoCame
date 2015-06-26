@@ -41,15 +41,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${headCounselorInstance?.documents}">
-				<li class="fieldcontain">
-					<span id="documents-label" class="property-label"><g:message code="headCounselor.documents.label" default="Documents" /></span>
-					
-						<span class="property-value" aria-labelledby="documents-label"><g:fieldValue bean="${headCounselorInstance}" field="documents"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${headCounselorInstance?.personAddress}">
 				<li class="fieldcontain">
 					<span id="personAddress-label" class="property-label"><g:message code="headCounselor.personAddress.label" default="Person Address" /></span>

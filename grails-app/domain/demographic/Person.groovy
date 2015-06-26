@@ -34,6 +34,7 @@ class Person {
 	static mapping = {
 		//documents cascade:'delete'
 		personAddress  cascade: "all-delete-orphan"
+		boardAttendance cascade: "all-delete-orphan"
 		tablePerHierarchy false
 	 }
 }

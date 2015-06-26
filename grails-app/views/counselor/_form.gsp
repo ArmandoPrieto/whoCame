@@ -19,14 +19,7 @@
 	<g:datePicker name="birthDate" precision="day"  value="${counselorInstance?.birthDate}" default="none" noSelection="['': '']" />
 
 </div>
-<%-- 
-<div class="fieldcontain ${hasErrors(bean: counselorInstance, field: 'documents', 'error')} ">
-	<label for="documents">
-		<g:message code="counselor.documents.label" default="Documents" />
-		
-	</label>
-</div>
---%>
+
 <div class="fieldcontain ${hasErrors(bean: counselorInstance, field: 'personAddress', 'error')} ">
 	<label for="personAddress">
 		<g:message code="counselor.personAddress.label" default="Person Address" />

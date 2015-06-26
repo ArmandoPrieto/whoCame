@@ -41,15 +41,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${camperInstance?.documents}">
-				<li class="fieldcontain">
-					<span id="documents-label" class="property-label"><g:message code="camper.documents.label" default="Documents" /></span>
-					
-						<span class="property-value" aria-labelledby="documents-label"><g:fieldValue bean="${camperInstance}" field="documents"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${camperInstance?.personAddress}">
 				<li class="fieldcontain">
 					<span id="personAddress-label" class="property-label"><g:message code="camper.personAddress.label" default="Person Address" /></span>

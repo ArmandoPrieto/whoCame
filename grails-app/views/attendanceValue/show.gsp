@@ -32,6 +32,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${attendanceValueInstance?.attendance}">
+				<li class="fieldcontain">
+					<span id="attendance-label" class="property-label"><g:message code="attendanceValue.attendance.label" default="Attendance" /></span>
+					
+						<span class="property-value" aria-labelledby="attendance-label"><g:link controller="attendance" action="show" id="${attendanceValueInstance?.attendance?.id}">${attendanceValueInstance?.attendance?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${attendanceValueInstance?.value}">
 				<li class="fieldcontain">
 					<span id="value-label" class="property-label"><g:message code="attendanceValue.value.label" default="Value" /></span>

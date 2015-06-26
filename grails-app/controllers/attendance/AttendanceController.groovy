@@ -1,19 +1,16 @@
 package attendance
 
+
+
 import static org.springframework.http.HttpStatus.*
-import camp.Grade
-import demographic.Person
 import grails.transaction.Transactional
-import org.joda.time.DateTime
 
 @Transactional(readOnly = true)
 class AttendanceController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-   
-	
-	 def index(Integer max) {
+    def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Attendance.list(params), model:[attendanceInstanceCount: Attendance.count()]
     }

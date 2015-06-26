@@ -20,15 +20,6 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: camperInstance, field: 'documents', 'error')} ">
-	<label for="documents">
-		<g:message code="camper.documents.label" default="Documents" />
-		
-	</label>
-	
-
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: camperInstance, field: 'personAddress', 'error')} ">
 	<label for="personAddress">
 		<g:message code="camper.personAddress.label" default="Person Address" />

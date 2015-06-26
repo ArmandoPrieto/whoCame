@@ -23,7 +23,7 @@
 			<table>
 			<thead>
 					<tr>
-					
+					<g:sortableColumn property="name" title="${message(code: 'counselor.name.label', default: 'Name')}" />
 						<g:sortableColumn property="gender" title="${message(code: 'counselor.gender.label', default: 'Gender')}" />
 					
 						<g:sortableColumn property="birthDate" title="${message(code: 'counselor.birthDate.label', default: 'Birth Date')}" />
@@ -41,8 +41,9 @@
 				<tbody>
 				<g:each in="${counselorInstanceList}" status="i" var="counselorInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+						<td><g:link action="show" id="${counselorInstance.id}">${fieldValue(bean: counselorInstance, field: "name")}</g:link></td>
 					
-						<td><g:link action="show" id="${counselorInstance.id}">${fieldValue(bean: counselorInstance, field: "gender")}</g:link></td>
+						<td>${fieldValue(bean: counselorInstance, field: "gender")}</td>
 					
 						<td><g:formatDate date="${counselorInstance.birthDate}" /></td>
 					
