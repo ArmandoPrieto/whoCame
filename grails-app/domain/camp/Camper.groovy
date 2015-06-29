@@ -11,7 +11,7 @@ class Camper extends Person{
 	
 	
     static constraints = {
-		camperGrade(nullable: true)
+		//camperGrade(nullable: true)
     }
 	static mapping = {
 		tablePerHierarchy false

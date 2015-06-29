@@ -350,7 +350,7 @@ class MainController {
 			campers.each{ camper ->
 				
 				def c2 = Attendance.createCriteria()
-				def atteCamper = c1.list {
+				def atteCamper = c2.list {
 					eq('board', camper.boardAttendance)
 					eq('date', date)
 				}
