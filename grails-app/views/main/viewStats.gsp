@@ -26,7 +26,13 @@
   			<g:link controller="main" action="mainBoard" data-icon="back" >Go back</g:link>
 		</div>
 		<div id="page-content" data-role="content" data-theme="${theme}">
-		<h1>campers: ${campersAttendance} counselors: ${counselorsAttendance}</h1>
+		<div class="ui-body ui-body-a ui-corner-all" style="margin-bottom:5px;">
+			  			<p>
+			  			<h2>Campers: ${campersAttendance}, Counselors: ${counselorsAttendance}</h2>
+						<h2>Total: ${campersAttendance+counselorsAttendance}</h2> 	
+     					 </p>
+					</div>
+		
 <%--		
 	<div data-role="popup" id="table-column-toggle-popup" class="ui-table-columntoggle-popup">
   <fieldset data-role="controlgroup">
