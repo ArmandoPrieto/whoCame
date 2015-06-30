@@ -54,11 +54,15 @@
 		      <thead>
 		        <tr>
 		          <th data-priority="1" data-colstart="1" class="ui-table-cell-visible">Grade</th>
+		         <th data-priority="1" data-colstart="4" class="ui-table-cell-visible centerText borderLeft" colspan=1 >Total Check In</th>
+  			
 		          <th data-priority="1" data-colstart="2" class="ui-table-cell-visible centerText borderLeft" colspan=4>Campers</th>
   				  <th data-priority="1" data-colstart="3" class="ui-table-cell-visible centerText borderLeft" colspan=4 >Counselors</th>
-  				</tr>
+  				 	</tr>
   			 	<tr>
 		          <th data-priority="1" data-colstart="1" class="ui-table-cell-visible"></th>
+		             <th data-priority="1" data-colstart="4" class="ui-table-cell-visible"><abbr title="T# C+C">Total# C+C</abbr></th>
+		       
 		          <th data-priority="1" data-colstart="2" class="ui-table-cell-visible borderLeft"><abbr title="CheckIn">Check In</abbr></th>
 		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="CheckOut">Check Out</abbr></th>
 		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="Atte Percent">Attendance Percent</abbr></th>
@@ -67,7 +71,6 @@
 		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="CheckOut">Check Out</abbr></th>
 		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="Atte Percent">Attendance Percent</abbr></th>
 		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="T# Counselors">Total# Counselors</abbr></th>
-		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="T# C+C">Total# C+C</abbr></th>
 		         
 		        </tr>
 			 </thead>
@@ -75,6 +78,8 @@
 		       <g:each in="${gradeStats}">
 		        <tr>
 		          <th class="ui-table-priority-2 ui-table-cell-visible">${it.gradeName}</th>
+		            <td class="ui-table-priority-2 ui-table-cell-visible">${it.campersCheckIn+it.counselorsCheckIn}</td>
+		    
 		          <td class="ui-table-priority-2 ui-table-cell-visible">${it.campersCheckIn}</td>
 		          <td class="ui-table-priority-2 ui-table-cell-visible">${it.campersCheckOut}</td>
 		           <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCampers!=0?(it.campersCheckIn*100).intdiv(it.totalCampers):0}%</td>
@@ -83,8 +88,7 @@
 		          <td class="ui-table-priority-2 ui-table-cell-visible">${it.counselorsCheckOut}</td>
 		           <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCounselors!=0?(it.counselorsCheckIn*100).intdiv(it.totalCounselors):0}%</td>
 		        <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCounselors}</td>
-		         <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCounselors+it.totalCampers}</td>
-		        </tr>
+		         </tr>
 		      </g:each>
 		      </tbody>
 	   		</table>
