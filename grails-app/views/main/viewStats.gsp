@@ -67,7 +67,8 @@
 		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="CheckOut">Check Out</abbr></th>
 		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="Atte Percent">Attendance Percent</abbr></th>
 		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="T# Counselors">Total# Counselors</abbr></th>
-		          
+		          <th data-priority="1" data-colstart="3" class="ui-table-cell-visible"><abbr title="T# C+C">Total# C+C</abbr></th>
+		         
 		        </tr>
 			 </thead>
 		      <tbody>
@@ -82,6 +83,7 @@
 		          <td class="ui-table-priority-2 ui-table-cell-visible">${it.counselorsCheckOut}</td>
 		           <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCounselors!=0?(it.counselorsCheckIn*100).intdiv(it.totalCounselors):0}%</td>
 		        <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCounselors}</td>
+		         <td class="ui-table-priority-2 ui-table-cell-visible">${it.totalCounselors+it.totalCampers}</td>
 		        </tr>
 		      </g:each>
 		      </tbody>
