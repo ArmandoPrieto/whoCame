@@ -79,16 +79,19 @@ class ImporterController {
 	}
 	def camperImporter(){
 		boolean importProcess = true
-		String filename= g.resource(dir: 'files', file: 'campers.xlsx', absolute: true)
+		String filename
 		//def filename = 'web-app/files/campers.xlsx'
 		boolean append = params.append?:false
 		
 		if(!append){
+			filename= g.resource(dir: 'files', file: 'campers.xlsx', absolute: true)
 			Camper.findAll().each {
 				it?.camperGrade?.removeFromCampers(it)
 				it.delete()
 			}
 			
+		}else{
+		filename= g.resource(dir: 'files', file: 'extraCampers.xlsx', absolute: true)
 		}
 		GroovyExcelParser parser = new GroovyExcelParser()
 		def (headers, rows) = parser.parse(filename)
