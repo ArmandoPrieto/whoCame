@@ -150,3 +150,14 @@ grails.plugin.springsecurity.interceptUrlMap = [
 	'/main/**':                       ['ROLE_HEAD_COUNSELOR','ROLE_HEAD_MASTER','ROLE_SUPER_USER']
 ]
 
+whocame{
+	campTime = [
+		
+		Week1 : [from:"06/29/2015",to:"07/03/2015"],
+		Week2 : [from:"07/06/2015",to:"07/10/2015"],
+		Week3 : [from:"07/13/2015",to:"07/17/2015"],
+		Week4 : [from:"07/20/2015",to:"07/24/2015"]
+	]
+	
+}
+

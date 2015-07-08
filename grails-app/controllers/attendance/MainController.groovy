@@ -17,7 +17,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.format.DateTimeFormat
 import org.jadira.usertype.dateandtime.joda.*
-
+import attendance.TimeAuxiliar
 
 
 class MainController {
@@ -170,9 +170,9 @@ class MainController {
 		def grade = Grade.findByGradeName(user.username)
 		def gradePersonsList
 		if(params.personType == "camper"){
-			gradePersonsList = grade.campers
+			gradePersonsList = Camper.findAllByCamperGrade(grade)
 		}else if(params.personType == "counselor"){
-			gradePersonsList = grade.team.counselors
+			gradePersonsList = Counselor.findAllByTeam(grade.team)
 		}
 		
 		DateTime aux = new DateTime()
@@ -183,7 +183,7 @@ class MainController {
 		 
 		def check = params.list('checkbox-attendance')
 		gradePersonsList.each{ person ->
-			
+			if(person){
 			if(check.contains(person.id.toString())){
 			
 				attendanceValue = true
@@ -270,6 +270,7 @@ class MainController {
 				flash.error = "Attendance sheet not saved"
 			}
 		}
+		}
 
 
 		redirect(controller: 'main',action:'mainBoard')
@@ -345,10 +346,10 @@ class MainController {
 			writer.writeNext(record);
 			record = ["Name","Check In", "Check Out"]
 			writer.writeNext(record);
-			def campers = grade.campers.sort { it.name }
+			def campers = grade.campers.sort { it?.name }
 			
 			campers.each{ camper ->
-				
+				if(camper){
 				def c2 = Attendance.createCriteria()
 				def atteCamper = c2.list {
 					eq('board', camper.boardAttendance)
@@ -361,7 +362,7 @@ class MainController {
 				}
 				writer.writeNext(record);
 			}
-			
+			}
 			//close the writer
 			writer.close();
 
@@ -386,4 +387,92 @@ class MainController {
 
 
 	}
-}
+
+	def checkAttendance(){
+		def grade = Grade.get(params.id)
+	
+		render(view: 'checkAttendance',model:[grade: grade])
+		
+	}
+	def checkAttendanceGrade(){
+		String personType = params.personType //campers | counselors
+		Grade grade
+		if(params.gradeOption){
+			grade = Grade.get(params.gradeOption)
+		}else{
+			grade = Grade.get(params.id)
+		}
+		List persons
+		if(personType == "counselor"){
+			def c = Counselor.createCriteria()
+			persons = c.list () {
+				order("name", "asc")
+				team { eq("grade",grade) }
+			}
+
+		}else if(personType == "camper"){
+			persons = grade.getCampers()
+			def c = Camper.createCriteria()
+			persons = c.list () {
+				order("name", "asc")
+				eq("camperGrade",grade)
+			}
+
+		}else if(personType == "headStaff"){
+
+		}else{
+			//Error
+			render(view: 'index')
+		}
+		
+
+
+		render(view: 'checkAttendanceGrade',
+		model:[
+			persons: persons,
+			grade: grade])
+
+	
+	}
+	def attendanceDetail(){
+		
+		//params personId or list of persons
+		
+		def personId = params.id
+		
+		def person = Person.get(personId)
+		def personGrade
+		def personType
+		if(person.getClass()== Counselor.class){
+			personGrade = person.team.grade
+			personType = "counselor"
+		}else if(person.getClass() == Camper.class){
+			personGrade = person.camperGrade
+			personType = "camper"
+		}
+		
+		TimeAuxiliar timeAux = new TimeAuxiliar()
+		
+		def attendanceDetail = [:]
+		def weeks = [:]
+		grailsApplication.config.whocame.campTime.each{ key, value ->
+		
+			def dates = timeAux.getIntervals(key, value)
+			weeks.put(key, dates)
+			dates.each{
+				
+				attendanceDetail.put(it, statsService.getPersonDayAttendance(person, it))
+			}
+			
+			
+			
+		}
+		
+		render(view: 'personAttendanceDetail', model:[person: person,personType:personType,personGrade: personGrade, weeks:weeks,attendanceDetail:attendanceDetail])
+	
+		
+		}
+	
+	
+	
+	}

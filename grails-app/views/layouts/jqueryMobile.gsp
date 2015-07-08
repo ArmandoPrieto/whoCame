@@ -36,7 +36,9 @@
 		
 		$("tr:even").css("background-color", "#eeeeee");
 		$("tr:odd").css("background-color", "#ffffff");
-		
+
+		$("tr .green").css("background-color", "rgba(210, 231, 130, 0.88)");
+		$("tr .red").css("background-color", "rgba(252, 150, 150, 0.8)");
 		// alert("pagecreate event fired!");
 		$('#saveAttendance').bind('click', function() {
 			//Place code here

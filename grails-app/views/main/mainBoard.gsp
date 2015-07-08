@@ -43,20 +43,17 @@
 					</div>
 				</g:if>
 			  
-			  
-		
-	
 		
 		<g:form action="attendanceInOrOut" id="${grade.id}" method="get"   >
       		<input type="submit" value="Take today's roll">
 		</g:form>
 		
 		
-			<%-- 
-		<g:form action="attendanceDate" id="${grade.id}" method="get">
+			
+		<g:form action="checkAttendance" id="${grade.id}" method="get">
       		<input type="submit" value="Check attendance">
 		</g:form>
-		--%>
+		
 		<g:form action="statisticsDate" id="${grade.id}" method="get">
       		<input type="submit" value="Statistics">
 		</g:form>
@@ -65,7 +62,10 @@
 			 
 			 <g:form action="downloadDataDate" id="${grade.id}" method="get"  data-ajax="false" >
       		<input type="submit" value="Download Data">
-		</g:form>
+			</g:form>
+		
+			
+		
 			 </sec:ifAnyGranted>
 			
 			

@@ -3,6 +3,8 @@ package stats
 import camp.Grade
 import camp.Camper
 import camp.Counselor
+import demographic.Person
+import attendance.Attendance
 import attendance.Board
 import grails.transaction.Transactional
 import org.joda.time.DateTime
@@ -107,5 +109,24 @@ class StatsService {
 		return Counselor.countByTeam(grade.team)
 	
 	
+	}
+	
+	def getPersonDayAttendance(Person person, DateTime date){
+		
+		/*if(person.getClass() == Camper.class){
+			
+			
+		}else if(person.getClass() == Counselor.class){
+		
+		
+		}*/
+		
+		
+		
+		
+		Attendance attendance = Attendance.findByDateAndBoard(date, person?.boardAttendance)
+		
+		return attendance?attendance.checkIn.value:false
+		
 	}
 }
