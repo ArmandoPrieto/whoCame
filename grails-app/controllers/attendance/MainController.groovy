@@ -320,7 +320,10 @@ class MainController {
 					grailsApplication.config.whocame.campTime.each{ key, value ->
 						def dates = timeAux.getIntervals(key, value)
 						dates.each{
-						atteCounselor.add(statsService.getPersonDayAttendance(counselor, it))
+							
+							if(it.toDate()<= new Date()){
+							atteCounselor.add(statsService.getPersonDayAttendance(counselor, it))
+							}
 						}
 					}
 					record =  atteCounselor as String[]
@@ -357,7 +360,9 @@ class MainController {
 					grailsApplication.config.whocame.campTime.each{ key, value ->
 						def dates = timeAux.getIntervals(key, value)
 						dates.each{
+							if(it.toDate()<= new Date()){
 							atteCamper.add(statsService.getPersonDayAttendance(camper, it))
+							}
 						}
 					}
 					record = atteCamper as String[]
