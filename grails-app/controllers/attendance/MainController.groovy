@@ -275,9 +275,118 @@ class MainController {
 
 		redirect(controller: 'main',action:'mainBoard')
 	}
+	def downloadType(){
+		
+		render(view: 'downloadType')
+	}
 	def downloadDataDate(){
 				render(view: 'downloadDataDate')
 	}
+	
+	def downloadComplete(){
+		ByteArrayOutputStream baos = new ByteArrayOutputStream()
+		ZipOutputStream zipFile = new ZipOutputStream(baos)
+		String storageDirectory = servletContext.getRealPath(grailsApplication.config.fileTmp.download.directory.tmp)
+		String [] record
+		String csv
+		CSVWriter writer
+		File file
+		
+		def grades = Grade.list()
+		grades.each{ grade ->
+			csv = grade.gradeName+" counselors.csv"
+			writer = new CSVWriter(
+				new FileWriter(storageDirectory+csv));
+			record = ["Grade",grade.gradeName]
+			writer.writeNext(record);
+			record = ["Name","Check In"]
+			writer.writeNext(record);
+			def head =[" "]
+			TimeAuxiliar timeAux = new TimeAuxiliar()
+			grailsApplication.config.whocame.campTime.each{ key, value ->
+				def dates = timeAux.getIntervals(key, value)
+				dates.each{
+				head.add(g.formatDate(date:it.toDate(), format: 'MM/dd/yyyy'))
+				}
+			}
+			record = head as String[]
+			writer.writeNext(record);
+			//Counselors
+			def atteCounselor = []
+			def counselors = grade.team.counselors.sort { it.name }
+			counselors.each{ counselor ->
+				if(counselor){
+					atteCounselor.add(counselor.name)
+					grailsApplication.config.whocame.campTime.each{ key, value ->
+						def dates = timeAux.getIntervals(key, value)
+						dates.each{
+						atteCounselor.add(statsService.getPersonDayAttendance(counselor, it))
+						}
+					}
+					record =  atteCounselor as String[]
+					writer.writeNext(record);
+					atteCounselor = []
+				}
+			}
+			//close the writer
+			writer.close();
+			file = new File(storageDirectory+csv)
+			zipFile.putNextEntry(new ZipEntry("counselors/"+csv))
+			file.withInputStream { i ->
+				zipFile << i
+			}
+			zipFile.closeEntry()
+
+			//Campers		
+			csv = grade.gradeName+" campers.csv"
+			writer = new CSVWriter(
+				new FileWriter(storageDirectory+csv));
+			record = ["Grade",grade.gradeName]
+			writer.writeNext(record);
+			record = ["Name","Check In"]
+			writer.writeNext(record);
+			
+			record = head as String[]
+			writer.writeNext(record);
+			
+			def campers = grade.campers.sort { it?.name }
+			def atteCamper = []
+			campers.each{ camper ->
+				if(camper){
+					atteCamper.add(camper.name)
+					grailsApplication.config.whocame.campTime.each{ key, value ->
+						def dates = timeAux.getIntervals(key, value)
+						dates.each{
+							atteCamper.add(statsService.getPersonDayAttendance(camper, it))
+						}
+					}
+					record = atteCamper as String[]
+					writer.writeNext(record);
+					atteCamper = []
+				}
+			}
+			//close the writer
+			writer.close();
+
+			file = new File(storageDirectory+csv)
+
+			zipFile.putNextEntry(new ZipEntry("campers/"+csv))
+			file.withInputStream { i ->
+
+				zipFile << i
+
+			}
+			zipFile.closeEntry()
+				
+		}
+		
+		zipFile.finish()
+		response.setHeader("Content-disposition", "filename=\"campDataComplete.zip\"")
+		response.contentType = "application/zip"
+		response.outputStream << baos.toByteArray()
+		response.outputStream.flush()
+	}
+	
 	def downloadData(){
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
 		DateTime date = formatter.parseDateTime(params.date);

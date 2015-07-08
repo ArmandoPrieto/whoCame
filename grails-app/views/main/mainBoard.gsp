@@ -60,7 +60,7 @@
 		
 		<sec:ifAnyGranted roles="ROLE_HEAD_MASTER,ROLE_SUPER_USER">
 			 
-			 <g:form action="downloadDataDate" id="${grade.id}" method="get"  data-ajax="false" >
+			 <g:form action="downloadType" id="${grade.id}" method="get"  data-ajax="false" >
       		<input type="submit" value="Download Data">
 			</g:form>
 		
