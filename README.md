@@ -1,6 +1,6 @@
 # whoCame
 
-This is an web app than can help during the taking roll process for whatever event.
+This is an web app that can help during the taking roll process for whatever event.
 
 It can be used in a summer camp as well in a classroom or other nature event.
 
