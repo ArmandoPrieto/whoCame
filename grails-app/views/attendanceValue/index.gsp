@@ -24,11 +24,23 @@
 			<thead>
 					<tr>
 					
+						<g:sortableColumn property="time" title="${message(code: 'attendanceValue.time.label', default: 'Time')}" />
+					
+						<th><g:message code="attendanceValue.attendance.label" default="Attendance" /></th>
+					
+						<g:sortableColumn property="value" title="${message(code: 'attendanceValue.value.label', default: 'Value')}" />
+					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${attendanceValueInstanceList}" status="i" var="attendanceValueInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					
+						<td><g:link action="show" id="${attendanceValueInstance.id}">${fieldValue(bean: attendanceValueInstance, field: "time")}</g:link></td>
+					
+						<td>${fieldValue(bean: attendanceValueInstance, field: "attendance")}</td>
+					
+						<td><g:formatBoolean boolean="${attendanceValueInstance.value}" /></td>
 					
 					</tr>
 				</g:each>

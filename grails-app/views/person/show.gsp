@@ -41,17 +41,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${personInstance?.documents}">
-				<li class="fieldcontain">
-					<span id="documents-label" class="property-label"><g:message code="person.documents.label" default="Documents" /></span>
-					
-						<g:each in="${personInstance.documents}" var="d">
-						<span class="property-value" aria-labelledby="documents-label"><g:link controller="document" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${personInstance?.personAddress}">
 				<li class="fieldcontain">
 					<span id="personAddress-label" class="property-label"><g:message code="person.personAddress.label" default="Person Address" /></span>

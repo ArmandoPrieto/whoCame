@@ -1,3 +1,6 @@
+import org.apache.log4j.*
+import grails.util.Holders
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -87,41 +90,93 @@ grails.hibernate.osiv.readonly = false
 
 environments {
     development {
-        grails.logging.jul.usebridge = true
+        grails.converters.json.pretty.print = true
+		grails.logging.jul.usebridge = true
+		filesImporter.directory = 'files'
+		fileTmp.download.directory.tmp = 'download/tmp'
     }
     production {
         grails.logging.jul.usebridge = false
         // TODO: grails.serverURL = "http://www.changeme.com"
+		filesImporter.directory = 'files'
+		fileTmp.download.directory.tmp = 'download/tmp'
     }
 }
 
-// log4j configuration
-log4j.main = {
-    // Example of changing the log pattern for the default console appender:
-    //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+importer.file.counselor ="newCounselorLoadedFile.xlsx"
+importer.file.camper = "newCamperLoadedFile.xlsx"
+importer.file.templateCounselor = "templateCounselorFile.xlsx"
+importer.file.templateCamper = "templateCamperFile.xlsx"
 
-    error  'org.codehaus.groovy.grails.web.servlet',        // controllers
-           'org.codehaus.groovy.grails.web.pages',          // GSP
-           'org.codehaus.groovy.grails.web.sitemesh',       // layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-           'org.codehaus.groovy.grails.commons',            // core / classloading
-           'org.codehaus.groovy.grails.plugins',            // plugins
-           'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate'
+// log4j configuration
+lmyconfig {
+    myvariable {
+        workdir = 0
+    }
+}
+
+log4j = {
+    def pattern = new PatternLayout("[%p] [%c{3}] %m%n")
+
+    appenders {
+        appender new DailyRollingFileAppender(
+                        name:"file",
+                        file:"[:]/appLog.log",
+                        layout: pattern,
+                        datePattern: "'.'yyyy-MM-dd")
+
+        rollingFile name:"stacktrace", 
+                    file:"[:]/stacktrace.log", 
+                    maxFileSize:'100KB'
+        
+        console name:"stdout",
+                layout: pattern
+				
+	}
+
+    root { 
+		
+        environments {
+           
+            development {
+                all "stdout"
+				debug  file: 'grails.app'
+				additivity: false
+            }
+        }
+    }
+
+    error   'org.codehaus.groovy.grails.web.servlet',        // controllers
+            'org.codehaus.groovy.grails.web.pages',          // GSP
+            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
+            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+            'org.codehaus.groovy.grails.web.mapping',        // URL mapping
+            'org.codehaus.groovy.grails.commons',            // core / classloading
+            'org.codehaus.groovy.grails.plugins',            // plugins
+            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
+            'org.springframework',
+            'org.hibernate',
+            'net.sf.ehcache.hibernate'
+
+    warn    'org.springframework',
+            'org.hibernate',
+            'grails.plugins.springsecurity',
+            'groovyx.net.http'
+
+   
+    
 }
 
 
-//grails.gorm.autoFlush = true
-//grails.gorm.failOnError=true
+grails.gorm.autoFlush = true
+grails.gorm.failOnError=true
 grails.plugin.springsecurity.rejectIfNoRule = false
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false
 grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+grails.plugin.springsecurity.logout.afterLogoutUrl = "/login/index"
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = "/main/mainBoard"
+
+
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.security.User'
@@ -136,8 +191,19 @@ grails.plugin.springsecurity.interceptUrlMap = [
 	'/**/js/**':                      ['permitAll'],
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
-	'/**/files/**':                  ['permitAll'],
+	'/**/files/**':                   ['permitAll'],
 	'/**/favicon.ico':                ['permitAll'],
-	'/main/**': ['permitAll'],
+	'/main/**':                       ['ROLE_HEAD_COUNSELOR','ROLE_HEAD_MASTER','ROLE_SUPER_USER']
 ]
+
+whocame{
+	campTime = [
+		
+		Week1 : [from:"07/04/2016",to:"07/08/2015"],
+		Week2 : [from:"07/11/2016",to:"07/15/2015"],
+		Week3 : [from:"07/18/2016",to:"07/22/2015"],
+		Week4 : [from:"07/25/2016",to:"07/29/2015"]
+	]
+	
+}
 

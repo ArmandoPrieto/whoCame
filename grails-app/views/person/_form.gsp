@@ -20,24 +20,6 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: personInstance, field: 'documents', 'error')} ">
-	<label for="documents">
-		<g:message code="person.documents.label" default="Documents" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${personInstance?.documents?}" var="d">
-    <li><g:link controller="document" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="document" action="create" params="['person.id': personInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'document.label', default: 'Document')])}</g:link>
-</li>
-</ul>
-
-
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: personInstance, field: 'personAddress', 'error')} ">
 	<label for="personAddress">
 		<g:message code="person.personAddress.label" default="Person Address" />

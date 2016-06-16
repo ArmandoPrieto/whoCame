@@ -20,24 +20,6 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: counselorInstance, field: 'documents', 'error')} ">
-	<label for="documents">
-		<g:message code="counselor.documents.label" default="Documents" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${counselorInstance?.documents?}" var="d">
-    <li><g:link controller="document" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="document" action="create" params="['counselor.id': counselorInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'document.label', default: 'Document')])}</g:link>
-</li>
-</ul>
-
-
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: counselorInstance, field: 'personAddress', 'error')} ">
 	<label for="personAddress">
 		<g:message code="counselor.personAddress.label" default="Person Address" />
@@ -115,7 +97,7 @@
 		<g:message code="counselor.team.label" default="Team" />
 		
 	</label>
-	<g:select id="team" name="team.id" from="${camp.CounselorTeam.list()}" optionKey="id" value="${counselorInstance?.team?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:select id="team" name="team.id" from="${camp.CounselorTeam.list()}" optionKey="id" optionValue="grade" value="${counselorInstance?.team?.id}" class="many-to-one" noSelection="['null': '']"/>
 
 </div>
 

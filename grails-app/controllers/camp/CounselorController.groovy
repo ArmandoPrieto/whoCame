@@ -34,7 +34,7 @@ class CounselorController {
             respond counselorInstance.errors, view:'create'
             return
         }
-
+		
         counselorInstance.save flush:true
 
         request.withFormat {
@@ -80,7 +80,7 @@ class CounselorController {
             notFound()
             return
         }
-
+	
         counselorInstance.delete flush:true
 
         request.withFormat {

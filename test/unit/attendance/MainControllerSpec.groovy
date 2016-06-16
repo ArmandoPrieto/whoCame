@@ -1,4 +1,4 @@
-package whocame
+package attendance
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

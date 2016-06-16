@@ -29,12 +29,3 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: counselorTeamInstance, field: 'headCounselor', 'error')} ">
-	<label for="headCounselor">
-		<g:message code="counselorTeam.headCounselor.label" default="Head Counselor" />
-		
-	</label>
-	<g:select id="headCounselor" name="headCounselor.id" from="${camp.HeadCounselor.list()}" optionKey="id" value="${counselorTeamInstance?.headCounselor?.id}" class="many-to-one" noSelection="['null': '']"/>
-
-</div>
-

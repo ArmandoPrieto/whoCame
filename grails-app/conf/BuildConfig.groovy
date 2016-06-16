@@ -59,12 +59,17 @@ grails.project.dependency.resolution = {
 	 compile "org.apache.poi:poi:3.12"
 	  compile  'org.apache.poi:poi-ooxml:3.12'
 	  compile  'org.apache.poi:poi-ooxml-schemas:3.12'
+	  
+	  compile "org.jadira.usertype:usertype.core:3.2.0.GA"
+	
     }
 
     plugins {
+		//export data
+		compile ":csv:0.3.1"
+		
 		compile ":joda-time:1.5"
 		
-	
 		compile ":spring-security-core:2.0-RC4"
 		
 		// plugins for the build system only
@@ -87,3 +92,20 @@ grails.project.dependency.resolution = {
         //compile ":handlebars-asset-pipeline:1.3.0.3"
     }
 }
+
+grails.project.war.file = "target/ROOT.war"
+
+// This closure is passed the command line arguments used to start the
+// war process.
+grails.war.copyToWebApp = { args ->
+    fileset(dir:"web-app") {
+        include(name: "js/**")
+        include(name: "css/**")
+		include(name: "files/**")
+		include(name: "images/**")
+		include(name: "img/**")
+		include(name: "download/**")
+        include(name: "WEB-INF/**")
+    }
+}
+

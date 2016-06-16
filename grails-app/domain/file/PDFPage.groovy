@@ -2,7 +2,7 @@ package file
 
 class PDFPage {
 	
-	URL url
+	String url
 
     static constraints = {
     }

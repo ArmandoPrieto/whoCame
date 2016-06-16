@@ -40,11 +40,30 @@ environments {
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
         }
     }
+	/*
+	 * 
+	 *  Root User: adminCRB6Pez
+		Root Password: 3d6kGdGIZwfn
+		Database Name: whocame
+		Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
+		127.8.167.130
+	 * */
     production {
+		
+		
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
-            properties {
+			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+			//url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+			
+				pooled = true
+				
+				url = "jdbc:mysql://127.8.167.130:3306/whocame"
+				
+				driverClassName = "com.mysql.jdbc.Driver"
+				username = "adminCRB6Pez"
+				password = "3d6kGdGIZwfn"
+			
+				properties{
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true
                initialSize = 5
@@ -53,8 +72,8 @@ environments {
                maxIdle = 25
                maxWait = 10000
                maxAge = 10 * 60000
-               timeBetweenEvictionRunsMillis = 5000
-               minEvictableIdleTimeMillis = 60000
+               timeBetweenEvictionRunsMillis = 1800000
+               minEvictableIdleTimeMillis = 1800000
                validationQuery = "SELECT 1"
                validationQueryTimeout = 3
                validationInterval = 15000

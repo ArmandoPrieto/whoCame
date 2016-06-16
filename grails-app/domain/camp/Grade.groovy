@@ -14,20 +14,24 @@ class Grade {
 		gradeName( inList: [
 			"TK",
 			"K1",
-			"1",
-			"2",
-			"3",
-			"4",
-			"5",
-			"6",
+			"2nd",
+			"3rd",
+			"4th",
+			"5th",
+			"6th",
 			"Boys",
 			"Girls",
 			"ReCrew",
+			"Ext. Care",
 			"Liturgy",
-			"Lifeguard",
-			"Assistant",
+			"Administration",
 			"Director",
 			"HeadMaster"
 		])
     }
+	
+	public String toString(){
+		
+		return gradeName
+	}
 }

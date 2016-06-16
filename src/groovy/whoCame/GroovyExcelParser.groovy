@@ -12,7 +12,8 @@ class GroovyExcelParser {
 	
 		def parse(path) {
 			
-			InputStream inp = new FileInputStream(path)
+			//InputStream inp = new FileInputStream(path)
+			InputStream inp = new URL(path).openStream();
 			Workbook wb = WorkbookFactory.create(inp);
 			Sheet sheet = wb.getSheetAt(0);
 	

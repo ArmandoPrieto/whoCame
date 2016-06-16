@@ -38,7 +38,7 @@ class Counselor extends Person{
 		tshirt( inList: ["Small", "Medium","Large","X-Large","XXL", "XXXL"])
 		workTime( inList: ["Part Time", "Full Time"])
 		schoolSystem( inList: ["Private", "Public"])
-		team(nullable: true)
+		//team(nullable: true)
 		picture(nullable: true, blank:true)
 		school(nullable: true, blank:true)
 		schoolSystem(nullable: true, blank:true)

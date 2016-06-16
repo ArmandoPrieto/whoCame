@@ -20,24 +20,6 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: camperInstance, field: 'documents', 'error')} ">
-	<label for="documents">
-		<g:message code="camper.documents.label" default="Documents" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${camperInstance?.documents?}" var="d">
-    <li><g:link controller="document" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="document" action="create" params="['camper.id': camperInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'document.label', default: 'Document')])}</g:link>
-</li>
-</ul>
-
-
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: camperInstance, field: 'personAddress', 'error')} ">
 	<label for="personAddress">
 		<g:message code="camper.personAddress.label" default="Person Address" />

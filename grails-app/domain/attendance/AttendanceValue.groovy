@@ -1,18 +1,26 @@
 package attendance
 
+import org.joda.time.DateTime
+import org.jadira.usertype.dateandtime.joda.*
+
 class AttendanceValue {
 	
-	private Date time
-	private boolean value
+	DateTime time
+	boolean value
+	static belongsTo = [attendance:Attendance]
 
-	public AttendanceValue(){
-		
-		time = null
-		value = false
-	}
+
 
 	static constraints = {
 		
+		time(nullable: true)
+		
+	}
+	static mapping = {
+		
+		
+		value defaultValue: false
+		time type: PersistentDateTime,  defaultValue: null
 	}
 	
 }

@@ -4,9 +4,9 @@ import demographic.Person
 
 
 class Board {
-	List attendanceRecords
+	List attendanceRecords 
 	static hasMany = [attendanceRecords: Attendance]
-	static belongsTo = [person: Person]
+	static belongsTo = [person:Person]
     static constraints = {
     
 		attendanceRecords(nullable: true)
