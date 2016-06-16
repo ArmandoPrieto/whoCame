@@ -17,6 +17,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.format.DateTimeFormat
 import org.jadira.usertype.dateandtime.joda.*
+
 import attendance.TimeAuxiliar
 
 
@@ -284,9 +285,13 @@ class MainController {
 	}
 	
 	def downloadComplete(){
-		ByteArrayOutputStream baos = new ByteArrayOutputStream()
-		ZipOutputStream zipFile = new ZipOutputStream(baos)
+		/*ByteArrayOutputStream baos = new ByteArrayOutputStream()
+		ZipOutputStream zipFile = new ZipOutputStream(baos)*/
+		String zipFileName = "campDataComplete.zip"
+		
 		String storageDirectory = servletContext.getRealPath(grailsApplication.config.fileTmp.download.directory.tmp)
+		File f = new File(storageDirectory+zipFileName).createNewFile()
+		ZipOutputStream zipFile = new ZipOutputStream(new FileOutputStream(f))
 		String [] record
 		String csv
 		CSVWriter writer
@@ -339,7 +344,7 @@ class MainController {
 				zipFile << i
 			}
 			zipFile.closeEntry()
-
+			println grade.gradeName +" Counselors Done"
 			//Campers		
 			csv = grade.gradeName+" campers.csv"
 			writer = new CSVWriter(
@@ -382,14 +387,16 @@ class MainController {
 
 			}
 			zipFile.closeEntry()
-				
-		}
+			println grade.gradeName +" Campers Done"
 		
-		zipFile.finish()
-		response.setHeader("Content-disposition", "filename=\"campDataComplete.zip\"")
-		response.contentType = "application/zip"
-		response.outputStream << baos.toByteArray()
-		response.outputStream.flush()
+		//	return false
+			}
+		
+		zipFile.close()
+	//	response.setHeader("Content-disposition", "filename=\"campDataComplete.zip\"")
+	//	response.contentType = "application/zip"
+		//response.outputStream << baos.toByteArray()
+	//	response.outputStream.flush()
 	}
 	
 	def downloadData(){

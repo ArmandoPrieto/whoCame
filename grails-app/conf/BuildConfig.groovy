@@ -61,7 +61,7 @@ grails.project.dependency.resolution = {
 	  compile  'org.apache.poi:poi-ooxml-schemas:3.12'
 	  
 	  compile "org.jadira.usertype:usertype.core:3.2.0.GA"
-	 
+	
     }
 
     plugins {
