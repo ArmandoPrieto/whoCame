@@ -24,6 +24,7 @@ class Grade {
 			"ReCrew",
 			"Ext. Care",
 			"Liturgy",
+			"Media",
 			"Administration",
 			"Director",
 			"HeadMaster"

@@ -12,10 +12,12 @@
 			$( document ).ready(function() {
 				
 				$("#submmitFileButton").click(function(){
-					if($("#append").is(':checked')){
-						$("#dialogLink").click();
+					//if($("#append").is(':checked')){
+						//$("#dialogLink").click();
+						$("#loadFile").submit();
+					//	alert('Hola');
 					//submmitForm
-					}
+					//}
 					
 				});
 			});
@@ -58,7 +60,7 @@
 			<div class='login_message'>${flash.message}</div>
 		</g:if>
 			
-			<g:form action='loadFile' method='post' data-ajax="false" enctype="multipart/form-data">
+			<g:form name='loadFile' action='loadFile' method='post' data-ajax="false" enctype="multipart/form-data">
 			<fieldset data-role="controlgroup">
 			  <legend>Choose type of file:</legend>
 			  <input type="radio" name="radio-choice" id="radio-choice-1" value="choice-1" checked="checked">

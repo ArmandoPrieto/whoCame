@@ -4,11 +4,13 @@ import camp.Counselor
 import camp.CounselorTeam
 import camp.Grade
 import demographic.Address
+import grails.transaction.Transactional
 import whoCame.GroovyExcelParser
+
+@Transactional
 class ImporterService {
 	
 	
-	static transacional = true
 	
 	
 	def counselorImporter(def fileData, boolean appendRecords = false, String particularGrade = null){
@@ -25,9 +27,10 @@ class ImporterService {
 			}
 			fileData['rows'].eachWithIndex { row, i ->
 				Counselor counselor
+				def mapRecords
 				try {
 					GroovyExcelParser parser = new GroovyExcelParser()
-					def mapRecords = parser.toMap(fileData['headers'], row)
+					mapRecords = parser.toMap(fileData['headers'], row)
 					if(!particularGrade || (particularGrade && particularGrade == mapRecords['gradeName'])){
 						counselor = new Counselor(mapRecords)
 						counselor.setPersonAddress(new Address(mapRecords))
@@ -37,12 +40,14 @@ class ImporterService {
 							team.addToCounselors(counselor)
 						}
 						if(!counselor.save()){
-							importProcess = false
+							
 							throw new Exception ("Counselor save failed at row"+ i+1)
 						}
 					}
 				} catch(Exception e) {
+					importProcess = false
 					log.error "***********---------***********"
+					log.error mapRecords['gradeName']
 					log.error e.toString()
 					counselor.errors.allErrors.each {error ->
 						log.error error.toString()
@@ -52,6 +57,7 @@ class ImporterService {
 			}
 			
 			if(!importProcess){
+				
 				log.error "Import Process Failed"
 				throw new Exception("Import Process Failed")
 			}
@@ -80,10 +86,11 @@ class ImporterService {
 						throw new Exception ("No grade found at row"+ i+1)
 					}
 					if(!camper.save()){
-						importProcess = false
+						
 						throw new Exception ("Camper save failed at row"+ i+1)
 					}
 				} catch(Exception e) {
+					importProcess = false
 					log.error "***********---------***********"
 					log.error e.toString()
 					camper.errors.allErrors.each {error ->

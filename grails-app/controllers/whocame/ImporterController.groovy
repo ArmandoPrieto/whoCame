@@ -1,5 +1,5 @@
 package whocame
-
+import static grails.async.Promises.*
 import camp.Camper
 import camp.Counselor
 import camp.CounselorTeam
@@ -13,10 +13,10 @@ class ImporterController {
 	def importerService
 	def fileData = [:]
     def index() { 
-		
-		
 		render(view: "load")
 	}
+	
+	
 	
 	def loadFile(){
 		log.info "Processing upload file"
@@ -32,17 +32,20 @@ class ImporterController {
 		if(!validateFileExtension(file, fileData['fileName'])){
 			//Wrong extension
 			log.info "Wrong extension"
+			flash.error = "Wrong extension"
 			render(view: "fail")
 			return false
 		}
 		if(!transferFile(file, fileData['fileName'])){
 			log.info "Wrong Transfer"
+			flash.error = "Wrong Transfer"
 			render(view: "fail")
 			return false
 		}
 		if(!validateFileHeader()){
 			//Wrong header
 			log.info "Wrong header"
+			flash.error = "Wrong header"
 			render(view: "fail")
 			return false
 		}
@@ -54,16 +57,16 @@ class ImporterController {
 			}
 		}catch(Exception e){
 			log.info "Import process failed"
+			flash.error = "Import process failed"
 			e.printStackTrace()
 			render(view: "fail")
 			return false
 		}
-		
+		flash.message = "File loaded successfully "
 		render(view: "succes")
 		
-		log.info "Keep working"
+		
 	}
-	
 	private boolean transferFile(def file, def fileName){
 		try{
 			def servletContext = ServletContextHolder.getServletContext()
