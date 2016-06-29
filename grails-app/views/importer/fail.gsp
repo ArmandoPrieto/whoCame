@@ -47,12 +47,14 @@
 		</div>
 		<div id="page-content" data-role="content" data-theme="${theme}">
 			
-			<g:if test='${flash.message}'>
-			<div class='login_message'>${flash.message}</div>
-		</g:if>
+			<g:if test='${flash.error}'>
+			<div><p class="bg-danger">${flash.error}</p></div>
+			</g:if>
 			
 			<h1>Fail</h1>
-			
+		
+    
+</div>
 				
 		</div>
 		
