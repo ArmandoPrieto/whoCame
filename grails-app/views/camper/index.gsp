@@ -24,36 +24,24 @@
 			<thead>
 					<tr>
 					
+						<g:sortableColumn property="name" title="${message(code: 'camper.name.label', default: 'Name')}" />
 						<g:sortableColumn property="gender" title="${message(code: 'camper.gender.label', default: 'Gender')}" />
+						<g:sortableColumn property="camperGrade" title="${message(code: 'camper.camperGrade.label', default: 'Grade')}" />
 					
-						<g:sortableColumn property="birthDate" title="${message(code: 'camper.birthDate.label', default: 'Birth Date')}" />
 					
-						<th><g:message code="camper.personAddress.label" default="Person Address" /></th>
-					
-						<g:sortableColumn property="mobileNumber" title="${message(code: 'camper.mobileNumber.label', default: 'Mobile Number')}" />
-					
-						<g:sortableColumn property="homeNumber" title="${message(code: 'camper.homeNumber.label', default: 'Home Number')}" />
-					
-						<g:sortableColumn property="email" title="${message(code: 'camper.email.label', default: 'Email')}" />
-					
+							
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${camperInstanceList}" status="i" var="camperInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${camperInstance.id}">${fieldValue(bean: camperInstance, field: "gender")}</g:link></td>
-					
-						<td><g:formatDate date="${camperInstance.birthDate}" /></td>
-					
-						<td>${fieldValue(bean: camperInstance, field: "personAddress")}</td>
-					
-						<td>${fieldValue(bean: camperInstance, field: "mobileNumber")}</td>
-					
-						<td>${fieldValue(bean: camperInstance, field: "homeNumber")}</td>
-					
-						<td>${fieldValue(bean: camperInstance, field: "email")}</td>
-					
+						<td><g:link action="show" id="${camperInstance.id}">${fieldValue(bean: camperInstance, field: "name")}</g:link></td>
+						<td>${fieldValue(bean: camperInstance, field: "gender")}</td>
+						<td>${fieldValue(bean: camperInstance, field: "camperGrade")}</td>
+						
+		
+							
 					</tr>
 				</g:each>
 				</tbody>

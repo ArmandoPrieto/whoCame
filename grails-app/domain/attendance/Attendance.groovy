@@ -20,6 +20,7 @@ class Attendance {
 		checkOut(unique: true, nullable: true)
 		
     }
+	static fetchMode = [checkIn: 'eager', checkOut:'eager']
 	
 	static mapping = {
 		

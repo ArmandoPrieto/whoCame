@@ -11,4 +11,5 @@ class Board {
     
 		attendanceRecords(nullable: true)
 	}
+	static fetchMode = [attendanceRecords: 'eager']
 }

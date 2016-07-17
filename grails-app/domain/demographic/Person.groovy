@@ -16,7 +16,7 @@ class Person {
 	static hasOne = [personAddress: Address, boardAttendance: Board]
 	//static hasMany = [documents: Document]
 	//static hasOne = [user: User]
-	
+	static fetchMode = [boardAttendance: 'eager']
     static constraints = {
 		gender( inList: ["Male", "Female", "U"])
 		
