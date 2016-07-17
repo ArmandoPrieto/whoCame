@@ -199,10 +199,10 @@ grails.plugin.springsecurity.interceptUrlMap = [
 whocame{
 	campTime = [
 		
-		Week1 : [from:"07/04/2016",to:"07/08/2015"],
-		Week2 : [from:"07/11/2016",to:"07/15/2015"],
-		Week3 : [from:"07/18/2016",to:"07/22/2015"],
-		Week4 : [from:"07/25/2016",to:"07/29/2015"]
+		Week1 : [from:"07/04/2016",to:"07/08/2016"],
+		Week2 : [from:"07/11/2016",to:"07/15/2016"],
+		Week3 : [from:"07/18/2016",to:"07/22/2016"],
+		Week4 : [from:"07/25/2016",to:"07/29/2016"]
 	]
 	
 }

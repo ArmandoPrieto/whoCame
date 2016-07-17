@@ -28,6 +28,24 @@ class GroovyExcelParser {
 			}
 			[headers, rows]
 		}
+		def parseFile(path) {
+			
+			InputStream inp = new FileInputStream(path)
+			//InputStream inp = new URL(path).openStream();
+			Workbook wb = WorkbookFactory.create(inp);
+			Sheet sheet = wb.getSheetAt(0);
+	
+			Iterator<Row> rowIt = sheet.rowIterator()
+			Row row = rowIt.next()
+			def headers = getRowData(row)
+	
+			def rows = []
+			while(rowIt.hasNext()) {
+				row = rowIt.next()
+				rows << getRowData(row)
+			}
+			[headers, rows]
+		}
 	
 		def getRowData(Row row) {
 			def data = []

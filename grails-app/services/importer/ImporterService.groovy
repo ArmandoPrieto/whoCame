@@ -1,12 +1,18 @@
 package importer
+import attendance.Attendance
+import attendance.AttendanceValue
+import attendance.Board
 import camp.Camper
 import camp.Counselor
 import camp.CounselorTeam
 import camp.Grade
 import demographic.Address
+import demographic.Person
 import grails.transaction.Transactional
 import whoCame.GroovyExcelParser
-
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormatter
+import org.joda.time.format.DateTimeFormat
 @Transactional
 class ImporterService {
 	
@@ -104,4 +110,92 @@ class ImporterService {
 				throw new Exception("Import Process Failed")
 			}
 		}
+
+	def checkAttendanceImported(def personType, def attendanceType, def gradeName, def personName, def value, def date){
+		if(personName!=null){
+			Person person
+			if(personType == "camper"){
+				def grade = Grade.findByGradeName(gradeName)
+				person = Camper.findByNameAndCamperGrade(personName, grade)
+			}else if(personType=="counselor"){
+				def grade = Grade.findByGradeName(gradeName)
+				def team = CounselorTeam.findByGrade(grade)
+				person = Counselor.findByNameAndTeam(personName, team)
+			}
+			if(!person){
+				person = Person.findByName(personName)
+			}
+			if(person){
+				DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+				DateTime aux = formatter.parseDateTime(date);
+				AttendanceValue check =null
+				Attendance newAttendance = null
+				boolean attendanceValue
+				if(value=="true"){
+					attendanceValue = true
+				}else{
+				attendanceValue = false
+					}
+				if(!person?.boardAttendance){
+					Board board = new Board()
+					person.setBoardAttendance(board)
+					newAttendance = new Attendance()
+				}else{
+					def a = Attendance.createCriteria()
+					def attendance = a.list () {
+						eq('date', aux.withTimeAtStartOfDay())
+						eq('board',person.boardAttendance)
+					}
+					if(attendance){
+						//Attendance date already exist
+						attendance.each{ newAttendance = it }
+					}else{
+						//Attendance date does not exist
+						newAttendance = new Attendance()
+					}
+				}
+					if(newAttendance?."${attendanceType}"){
+						check = newAttendance."${attendanceType}"
+					}else{
+						check = new AttendanceValue()
+					}
+					if(check.value != attendanceValue){
+						if(attendanceValue==false){
+							check.time = null
+						}else{
+							check.time = new DateTime()
+						}
+						check.value = attendanceValue
+					}
+				check.setAttendance(newAttendance)
+				if(attendanceType =="checkIn"){
+					newAttendance.setCheckIn(check)
+				}else if(attendanceType =="checkOut"){
+					newAttendance.setCheckOut(check)
+				}
+				
+				newAttendance.date = aux.withTimeAtStartOfDay()
+				person.boardAttendance.addToAttendanceRecords(newAttendance)
+				try{
+					if(!person.save()){
+						throw new Exception ("Exception taking roll on person")
+					}
+				}catch(Exception e){
+					println "***********---------***********"
+					println e.toString()
+					person.errors.allErrors.each {error ->
+						println error.toString()
+					}
+					println "***********---------***********"
+				}
+			}else{
+			println "${personName} :: This person does not exist ${personName}"
+			
+			}
+		}
+		
+	}
+	
+	
+	
 }

@@ -290,7 +290,7 @@ class MainController {
 		String zipFileName = "campDataComplete.zip"
 		
 		String storageDirectory = servletContext.getRealPath(grailsApplication.config.fileTmp.download.directory.tmp)
-		File f = new File(storageDirectory+zipFileName).createNewFile()
+		File f = new File("${storageDirectory}/${zipFileName}")
 		ZipOutputStream zipFile = new ZipOutputStream(new FileOutputStream(f))
 		String [] record
 		String csv
@@ -301,7 +301,7 @@ class MainController {
 		grades.each{ grade ->
 			csv = grade.gradeName+" counselors.csv"
 			writer = new CSVWriter(
-				new FileWriter(storageDirectory+csv));
+				new FileWriter("${storageDirectory}/${csv}"));
 			record = ["Grade",grade.gradeName]
 			writer.writeNext(record);
 			record = ["Name","Check In"]
@@ -338,7 +338,7 @@ class MainController {
 			}
 			//close the writer
 			writer.close();
-			file = new File(storageDirectory+csv)
+			file = new File("${storageDirectory}/${csv}")
 			zipFile.putNextEntry(new ZipEntry("counselors/"+csv))
 			file.withInputStream { i ->
 				zipFile << i
@@ -348,7 +348,7 @@ class MainController {
 			//Campers		
 			csv = grade.gradeName+" campers.csv"
 			writer = new CSVWriter(
-				new FileWriter(storageDirectory+csv));
+				new FileWriter("${storageDirectory}/${csv}"));
 			record = ["Grade",grade.gradeName]
 			writer.writeNext(record);
 			record = ["Name","Check In"]
@@ -378,7 +378,7 @@ class MainController {
 			//close the writer
 			writer.close();
 
-			file = new File(storageDirectory+csv)
+			file = new File("${storageDirectory}/${csv}")
 
 			zipFile.putNextEntry(new ZipEntry("campers/"+csv))
 			file.withInputStream { i ->
@@ -393,10 +393,15 @@ class MainController {
 			}
 		
 		zipFile.close()
+		render(view: "linkToData")
 	//	response.setHeader("Content-disposition", "filename=\"campDataComplete.zip\"")
 	//	response.contentType = "application/zip"
 		//response.outputStream << baos.toByteArray()
 	//	response.outputStream.flush()
+	}
+	
+	def downloadComplete2(){
+		
 	}
 	
 	def downloadData(){

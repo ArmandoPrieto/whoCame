@@ -6,12 +6,40 @@ import camp.CounselorTeam
 import camp.Grade
 import demographic.Address;
 import whoCame.GroovyExcelParser
+import grails.util.Environment
+
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 
 class ImporterController {
 	def grailsApplication
 	def importerService
 	def fileData = [:]
+	
+	
+	String storageDirectory
+	
+	
+	def beforeInterceptor = {
+		
+		if (Environment.current == Environment.DEVELOPMENT) {
+			// insert Development environment specific code here
+			storageDirectory =servletContext.getRealPath(grailsApplication.config.filesImporter.directory)
+			
+		} else
+		if (Environment.current == Environment.TEST) {
+			// insert Test environment specific code here
+		} else
+		if (Environment.current == Environment.PRODUCTION) {
+			// insert Production environment specific code here
+			storageDirectory = System.getenv('OPENSHIFT_DATA_DIR') + '/uploads'
+		
+		
+		}
+	
+	
+	
+	}
+	
     def index() { 
 		render(view: "load")
 	}
@@ -70,7 +98,8 @@ class ImporterController {
 	private boolean transferFile(def file, def fileName){
 		try{
 			def servletContext = ServletContextHolder.getServletContext()
-			def storegePath = servletContext.getRealPath(grailsApplication.config.filesImporter.directory)
+			//def storegePath = servletContext.getRealPath(grailsApplication.config.filesImporter.directory)
+			def storegePath = storageDirectory
 			file.transferTo(new File("${storegePath}/${fileName}"))
 		}catch(Exception e){
 			e.printStackTrace()
@@ -89,9 +118,19 @@ class ImporterController {
 		return true
 	}
 	private boolean validateFileHeader(){
-		String fileNameAux= g.resource(dir: 'files', file: fileData['fileName'], absolute: true)
+		def fileNameAux
+		/*if (Environment.current == Environment.DEVELOPMENT) {
+			//fileNameAux= g.resource(dir: 'files', file: fileData['fileName'], absolute: true)
+			fileNameAux = storageDirectory+"/"+fileData['fileName']
+		} else	if (Environment.current == Environment.TEST) {
+		} else	if (Environment.current == Environment.PRODUCTION) {
+			fileNameAux = new File(storageDirectory+"/"+fileData['fileName'])
+		}*/
+		
+		fileNameAux = "${storageDirectory}/${fileData['fileName']}"
+
 		GroovyExcelParser parser = new GroovyExcelParser()
-		def (headers, rows) = parser.parse(fileNameAux)
+		def (headers, rows) = parser.parseFile(fileNameAux)
 		fileData['headers'] = headers
 		fileData['rows'] = rows
 		def values1 = headers as List;

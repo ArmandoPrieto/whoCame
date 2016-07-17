@@ -113,16 +113,6 @@ class StatsService {
 	
 	def getPersonDayAttendance(Person person, DateTime date){
 		
-		/*if(person.getClass() == Camper.class){
-			
-			
-		}else if(person.getClass() == Counselor.class){
-		
-		
-		}*/
-		
-		
-		
 		
 		Attendance attendance = Attendance.findByDateAndBoard(date, person?.boardAttendance)
 		

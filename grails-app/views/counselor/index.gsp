@@ -26,16 +26,15 @@
 					<g:sortableColumn property="name" title="${message(code: 'counselor.name.label', default: 'Name')}" />
 						<g:sortableColumn property="gender" title="${message(code: 'counselor.gender.label', default: 'Gender')}" />
 					
-						<g:sortableColumn property="birthDate" title="${message(code: 'counselor.birthDate.label', default: 'Birth Date')}" />
+						<g:sortableColumn property="birthDate" title="${message(code: 'counselor.birthDate.label', default: 'DOB')}" />
 					
-						<th><g:message code="counselor.personAddress.label" default="Person Address" /></th>
 					
 						<g:sortableColumn property="mobileNumber" title="${message(code: 'counselor.mobileNumber.label', default: 'Mobile Number')}" />
 					
-						<g:sortableColumn property="homeNumber" title="${message(code: 'counselor.homeNumber.label', default: 'Home Number')}" />
 					
 						<g:sortableColumn property="email" title="${message(code: 'counselor.email.label', default: 'Email')}" />
-					
+						<g:sortableColumn property="team.grade" title="${message(code: 'counselor.grade.label', default: 'Grade')}" />
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -47,13 +46,12 @@
 					
 						<td><g:formatDate date="${counselorInstance.birthDate}" /></td>
 					
-						<td>${fieldValue(bean: counselorInstance, field: "personAddress")}</td>
-					
+						
 						<td>${fieldValue(bean: counselorInstance, field: "mobileNumber")}</td>
 					
-						<td>${fieldValue(bean: counselorInstance, field: "homeNumber")}</td>
 					
 						<td>${fieldValue(bean: counselorInstance, field: "email")}</td>
+						<td>${fieldValue(bean: counselorInstance, field: "team.grade")}</td>
 					
 					</tr>
 				</g:each>
